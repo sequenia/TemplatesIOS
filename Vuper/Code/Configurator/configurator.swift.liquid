@@ -1,0 +1,35 @@
+//
+//  {{ prefix }}{{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+protocol {{ module_info.name }}Configurator: class {
+
+}
+
+class {{ module_info.name }}ConfiguratorImpl: NSObject {
+
+    @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
+
+    override func awakeFromNib() {
+
+        self.configure(viewController: viewController)
+    }
+
+    private func configure(viewController: {{ module_info.name }}ViewController) {
+
+        let router = {{ module_info.name }}RouterImpl()
+
+        let presenter = {{ module_info.name }}PresenterImpl()
+        presenter.view = viewController
+        presenter.router = router
+
+        viewController.presenter = presenter
+    }
+
+}
