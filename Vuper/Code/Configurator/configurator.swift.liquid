@@ -24,6 +24,7 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject {
     private func configure(viewController: {{ module_info.name }}ViewController) {
 
         let router = {{ module_info.name }}RouterImpl()
+        router.view = viewController
 
         let presenter = {{ module_info.name }}PresenterImpl()
         presenter.view = viewController
