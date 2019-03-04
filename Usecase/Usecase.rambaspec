@@ -8,4 +8,4 @@ version: "0.1.0"
 
 code_files:
 # Usecase layer
-- {name: Usecases/Usecase.swift, path: Code/Usecase/Usecase.swift.liquid}
+- {name: Usecase.swift, path: Usecase.swift.liquid}
