@@ -9,7 +9,7 @@
 
 > Изменить project format на "Xcode 8.0-compatible"
 
-> В файле "project.pbxproj" удалить строки `inputFilePaths = ();` `outputFilePaths = ();`
+> В файле "project.pbxproj" удалить строки `inputFileListPaths = ();` `outputFileListPaths = ();`
 
 > Выполнить `generamba setup`
 
