@@ -1,12 +1,18 @@
 ### Установка
 > Установить https://brew.sh/index_ru
+
 > Установить Ruby 2.2 или выше https://gorails.com/setup/osx/10.14-mojave
+
 > Выполнить `gem install generamba`
 
 ### Интеграция в проект
+
 > Изменить project format на "Xcode 8.0-compatible"
+
 > В файле "project.pbxproj" удалить строки `inputFilePaths = ();` `outputFilePaths = ();`
+
 > Выполнить `generamba setup`
+
 > Открыть 'Rambafile' добавить строки
 
 ```
