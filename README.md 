@@ -11,7 +11,7 @@
 
 `### Templates
 catalogs:
-- 'https://Michaylovsky@gitlab.sequenia.com/Michaylovsky/TemplatesIOS.git'`
+- 'git@gitlab.sequenia.com:templates/TemplatesIOS.git'`
 
 > Проверить пути 
 
