@@ -12,7 +12,7 @@ protocol {{ module_info.name }}Configurator: class {
 
 }
 
-class {{ module_info.name }}ConfiguratorImpl: NSObject {
+class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Configurator {
 
     @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
 
