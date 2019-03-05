@@ -15,6 +15,7 @@ protocol {{ module_info.name }}Configurator: class {
 class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Configurator {
 
     @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
+    weak var presenter: {{ module_info.name }}PresenterImpl?
 
     override func awakeFromNib() {
 
@@ -31,6 +32,8 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
         presenter.router = router
 
         viewController.presenter = presenter
+        viewController.configurator = self
+        self.presenter = presenter
     }
 
 }
