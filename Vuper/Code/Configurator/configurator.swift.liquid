@@ -27,10 +27,6 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
         let router = {{ module_info.name }}RouterImpl()
         router.view = viewController
 
-        let presenter = {{ module_info.name }}PresenterImpl()
-        presenter.view = viewController
-        presenter.router = router
-
         let presenter = {{ module_info.name }}Impl.init(view: viewController, router: router)
 
         viewController.presenter = presenter
