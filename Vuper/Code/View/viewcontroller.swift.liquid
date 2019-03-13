@@ -19,7 +19,26 @@ class {{ module_info.name }}ViewController: UIViewController, {{ module_info.nam
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.presenter?.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter?.viewWillAppear()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.presenter?.viewDidAppear()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.presenter?.viewWillDisappear()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.presenter?.viewDidDisappear()
     }
 }

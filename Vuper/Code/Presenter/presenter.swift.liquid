@@ -7,7 +7,15 @@
 //
 
 protocol {{ module_info.name }}Presenter: class {
+    init(view: {{ module_info.name }}View, router: {{ module_info.name }}Router)
+
     func viewDidLoad()
+
+    func viewWillAppear()
+    func viewDidAppear()
+
+    func viewWillDisappear()
+    func viewDidDisappear()
 }
 
 class {{ module_info.name }}PresenterImpl: {{ module_info.name }}Presenter {
@@ -15,7 +23,28 @@ class {{ module_info.name }}PresenterImpl: {{ module_info.name }}Presenter {
     weak var view: {{ module_info.name }}View!
     var router: {{ module_info.name }}Router!
 
+    required init(view: {{ module_info.name }}View, router: {{ module_info.name }}Router) {
+        self.view = view
+        self.router = router
+    }
+
     func viewDidLoad() {
+
+    }
+
+    func viewWillAppear() {
+
+    }
+
+    func viewDidAppear() {
+
+    }
+
+    func viewWillDisappear() {
+        
+    }
+
+    func viewDidDisappear() {
 
     }
 }

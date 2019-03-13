@@ -9,9 +9,13 @@
 import UIKit
 
 protocol {{ module_info.name }}Usecase: class {
-
+    
+    func execute(completion: (@escaping (_ success: Bool, _ errorMessage: String?) -> Void))
 }
 
-class {{ module_info.name }}UsecaseImpl: NSObject {
+class {{ module_info.name }}UsecaseImpl: {{ module_info.name }}Usecase {
 
+    func execute(completion: @escaping ((_ success: Bool, _ errorMessage: String?) -> Void)) {
+
+    }
 }

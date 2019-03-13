@@ -31,6 +31,8 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
         presenter.view = viewController
         presenter.router = router
 
+        let presenter = {{ module_info.name }}Impl.init(view: viewController, router: router)
+
         viewController.presenter = presenter
         viewController.configurator = self
         self.presenter = presenter
