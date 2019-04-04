@@ -8,6 +8,7 @@ version: "0.1.0"
 
 code_files:
 # View layer
+- {name: View/ViewController.swift, path: Code/View/fabrick.swift.liquid}
 - {name: View/ViewController.swift, path: Code/View/Viewcontroller.swift.liquid}
 - {name: View/ViewController.storyboard, path: Code/View/Viewcontroller.storyboard.liquid}
 

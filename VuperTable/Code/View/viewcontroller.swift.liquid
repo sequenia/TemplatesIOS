@@ -42,7 +42,11 @@ class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_i
         self.presenter?.viewDidDisappear()
     }
 
+    override func initFabric() {
+        self.fabric = {{ module_info.name }}Fabric(tableView: self.tableView)
+    }
+
     func show() {
-        
+
     }
 }
