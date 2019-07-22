@@ -1,0 +1,18 @@
+//
+//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+@implementation {{ module_info.name }}Route 
+
++ (instancetype) with: (UIViewController *)viewController {
+    {{ module_info.name }}Route *object = [{{ module_info.name }}Route new];
+    object.viewController = viewController;
+
+    return object;
+}
+
+@end
