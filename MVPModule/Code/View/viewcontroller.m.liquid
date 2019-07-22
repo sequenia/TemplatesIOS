@@ -7,6 +7,8 @@
 //
 
 #import "{{ module_info.name }}ViewController.h"
+#import "{{ module_info.name }}Presenter.h"
+#import "{{ module_info.name }}Router.h"
 
 @interface {{ module_info.name }}ViewController ()
 
@@ -24,6 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.modulePresenter.router = (id<{{ module_info.name }}RouterProtocol>)[{{ module_info.name }}Router with: self];
 }
 
 @end

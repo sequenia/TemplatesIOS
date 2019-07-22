@@ -6,10 +6,16 @@
 //  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
 //
 
-@implementation {{ module_info.name }}Route 
+#import "{{ module_info.name }}Router.h"
+
+@interface FavoriteRouter () <{{ module_info.name }}RouteProtocol>
+
+@end
+
+@implementation {{ module_info.name }}Router 
 
 + (instancetype) with: (UIViewController *)viewController {
-    {{ module_info.name }}Route *object = [{{ module_info.name }}Route new];
+    {{ module_info.name }}Router *object = [{{ module_info.name }}Router new];
     object.viewController = viewController;
 
     return object;

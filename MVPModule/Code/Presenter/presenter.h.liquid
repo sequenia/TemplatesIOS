@@ -7,16 +7,17 @@
 //
 
 #import "VSMPresenter.h"
-@protocol {{ module_info.name }}Delegate;
+@protocol {{ module_info.name }}PresenterDelegate;
+@protocol {{ module_info.name }}RouterProtocol;
 
 @interface {{ module_info.name }}Presenter : VSMPresenter
 
-@property (weak, nonatomic) id<{{ module_info.name }}Delegat> delegate;
+@property (weak, nonatomic) id<{{ module_info.name }}PresenterDelegate> delegate;
 @property (weak, nonatomic) id<{{ module_info.name }}RouterProtocol> router;
 
 @end
 
 
-@protocol {{ module_info.name }}Delegat <VSMPresenterDelegate>
+@protocol {{ module_info.name }}PresenterDelegate <VSMPresenterDelegate>
 
 @end
