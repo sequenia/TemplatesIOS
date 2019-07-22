@@ -15,10 +15,10 @@
 @implementation {{ module_info.name }}ViewController
 
 - (void) initPresenter {
-    self.presenter = [[MainPagePresenter alloc] initWithViewDelegate:(id<MainPagePresenterDelegate>) self];
+    self.presenter = [[{{ module_info.name }}Presenter alloc] initWithViewDelegate:(id<{{ module_info.name }}PresenterDelegate>) self];
 }
 
-- ({{ module_info.name }}Presenter *) {{ module_info.name }}Presenter {
+- ({{ module_info.name }}Presenter *) modulePresenter {
     return ({{ module_info.name }}Presenter *) self.presenter;
 }
 
