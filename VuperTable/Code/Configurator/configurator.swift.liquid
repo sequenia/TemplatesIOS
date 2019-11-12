@@ -1,5 +1,5 @@
 //
-//  {{ module_info.name }}.swift
+//  {{ prefix }}{{ module_info.name }}{{ module_info.file_name }}
 //  {{ module_info.project_name }}
 //
 //  Created by {{ developer.name }} on {{ date }}.
@@ -12,7 +12,7 @@ protocol {{ module_info.name }}Configurator: class {
 
 }
 
-class {{ module_info.name }}ConfiguratorImpl: {{ module_info.name }}Configurator {
+class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Configurator {
 
     @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
     weak var presenter: {{ module_info.name }}PresenterImpl?

@@ -1,0 +1,29 @@
+//
+//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+#import "{{ module_info.name }}Presenter.h"
+
+@interface {{ module_info.name }}Presenter ()
+
+@end
+
+@implementation {{ module_info.name }}Presenter
+
+- (id<{{ module_info.name }}PresenterDelegate>) {{ module_info.name }}PresenterDelegate {
+    return (id<{{ module_info.name }}PresenterDelegate>) self.presenterDelegate;
+}
+
+- (void) onViewLoaded {
+    [super onViewLoaded];
+}
+
+- (void) onViewWillShow {
+
+}
+
+@end

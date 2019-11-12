@@ -9,10 +9,10 @@
 import UIKit
 
 protocol {{ module_info.name }}View: BaseView {
-
+    func show()
 }
 
-class {{ module_info.name }}ViewController: BaseViewController, {{ module_info.name }}View {
+class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_info.name }}View {
 
     var presenter: {{ module_info.name }}Presenter?
     var configurator: {{ module_info.name }}Configurator?
@@ -40,5 +40,13 @@ class {{ module_info.name }}ViewController: BaseViewController, {{ module_info.n
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.presenter?.viewDidDisappear()
+    }
+
+    override func initFabric() {
+        self.fabric = {{ module_info.name }}Fabric(tableView: self.tableView)
+    }
+
+    func show() {
+
     }
 }

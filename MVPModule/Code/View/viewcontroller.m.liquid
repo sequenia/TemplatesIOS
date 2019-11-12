@@ -1,0 +1,33 @@
+//
+//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+#import "{{ module_info.name }}ViewController.h"
+#import "{{ module_info.name }}Presenter.h"
+#import "{{ module_info.name }}Router.h"
+
+@interface {{ module_info.name }}ViewController ()
+
+@end
+
+@implementation {{ module_info.name }}ViewController
+
+- (void) initPresenter {
+    self.presenter = [[{{ module_info.name }}Presenter alloc] initWithViewDelegate:(id<{{ module_info.name }}PresenterDelegate>) self];
+}
+
+- ({{ module_info.name }}Presenter *) modulePresenter {
+    return ({{ module_info.name }}Presenter *) self.presenter;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.modulePresenter.router = (id<{{ module_info.name }}RouterProtocol>)[{{ module_info.name }}Router with: self];
+}
+
+@end

@@ -1,0 +1,18 @@
+# Template information section
+name: "VuperTable"
+summary: "Swift Vuper module template with UIViewController playing as a View."
+author: "Sequenia"
+version: "0.1.0"
+
+# The declarations for code files
+
+code_files:
+- {name: ViewController.h, path: Code/View/Viewcontroller.h.liquid}
+- {name: ViewController.m, path: Code/View/Viewcontroller.m.liquid}
+- {name: ViewController.xib, path: Code/View/Viewcontroller.xib.liquid}
+
+- {name: Presenter.h, path: Code/Presenter/Presenter.h.liquid}
+- {name: Presenter.m, path: Code/Presenter/Presenter.m.liquid}
+
+- {name: Router.h, path: Code/Router/Router.h.liquid}
+- {name: Router.m, path: Code/Router/Router.m.liquid}
