@@ -6,7 +6,7 @@
 //  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
 //
 
-protocol {{ module_info.name }}Presenter {
+protocol {{ module_info.name }}Presenter : class {
     init(view: {{ module_info.name }}View, router: {{ module_info.name }}Router)
 
     func viewDidLoad()
