@@ -8,14 +8,14 @@ version: "0.2.0"
 
 code_files:
 # View layer
-- {name: View/ViewController.swift, path: Code/View/Viewcontroller.swift.liquid}
-- {name: View/ViewController.storyboard, path: Code/View/Viewcontroller.storyboard.liquid}
+- {name: View/ViewController.swift, path: View/ViewController.swift.liquid}
+- {name: View/ViewController.storyboard, path: View/ViewController.storyboard.liquid}
 
 # Presenter layer
-- {name: Presenter/Presenter.swift, path: Code/Presenter/Presenter.swift.liquid}
+- {name: Presenter/Presenter.swift, path: Presenter/Presenter.swift.liquid}
 
 # Router layer
-- {name: Router/Router.swift, path: Code/Router/Router.swift.liquid}
+- {name: Router/Router.swift, path: Router/Router.swift.liquid}
 
 # Configurator
-- {name: Configurator/Configurator.swift, path: Code/Configurator/Configurator.swift.liquid}
+- {name: Configurator/Configurator.swift, path: Configurator/Configurator.swift.liquid}
