@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol {{ module_info.name }}Router {
+protocol {{ module_info.name }}Router : BaseRouter {
 
 }
 
-class {{ module_info.name }}RouterImpl: {{ module_info.name }}Router {
+class {{ module_info.name }}RouterImpl : {{ module_info.name }}Router {
 
     weak var view: UIViewController?
 

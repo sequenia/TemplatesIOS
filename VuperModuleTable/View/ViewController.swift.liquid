@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol {{ module_info.name }}View: BaseView {
+protocol {{ module_info.name }}View : BaseView {
     func show()
 }
 
-class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_info.name }}View {
+class {{ module_info.name }}ViewController : BaseTableViewController, {{ module_info.name }}View {
 
     var presenter: {{ module_info.name }}Presenter?
     var configurator: {{ module_info.name }}Configurator?
