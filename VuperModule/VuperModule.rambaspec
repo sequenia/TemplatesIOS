@@ -8,8 +8,8 @@ version: "0.2.0"
 
 code_files:
 # View layer
-- {name: View/ViewController.swift, path: Code/View/ViewController.swift.liquid}
-- {name: View/ViewController.storyboard, path: Code/View/ViewController.storyboard.liquid}
+- {name: View/ViewController.swift, path: Code/View/Viewcontroller.swift.liquid}
+- {name: View/ViewController.storyboard, path: Code/View/Viewcontroller.storyboard.liquid}
 
 # Presenter layer
 - {name: Presenter/Presenter.swift, path: Code/Presenter/Presenter.swift.liquid}
