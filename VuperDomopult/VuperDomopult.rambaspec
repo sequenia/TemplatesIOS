@@ -1,0 +1,21 @@
+# Template information section
+name: "VuperDomopult"
+summary: "Swift VuperDomopult module template with UIViewController playing as a View."
+author: "Sequenia"
+version: "0.1.0"
+
+# The declarations for code files
+
+code_files:
+# View layer
+- {name: ViewController.swift, path: Code/Viewcontroller.swift.liquid}
+- {name: ViewController.xib, path: Code/Viewcontroller.xib.liquid}
+
+# Presenter layer
+- {name: Presenter.swift, path: Code/Presenter.swift.liquid}
+
+# Router layer
+- {name: Router.swift, path: Code/Router.swift.liquid}
+
+# Configurator
+- {name: Configurator.swift, path: Code/Configurator.swift.liquid}

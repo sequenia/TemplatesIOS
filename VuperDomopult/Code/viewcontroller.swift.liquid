@@ -1,0 +1,91 @@
+//
+//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+import SectionedData
+import DifferenceKit
+
+private typealias Section = ArraySection<{{ module_info.name }}Section, BaseTableCellData>
+
+private enum {{ module_info.name }}Section: Int, ExtDifferentiable {
+
+    case id
+
+    func raw() -> Int {
+        return self.rawValue
+    }
+}
+
+protocol {{ module_info.name }}View: BaseView {
+
+    func show()
+
+}
+
+class {{ module_info.name }}ViewController: BaseViewController {
+
+    //MARK: - VUPER
+
+    var presenter: {{ module_info.name }}Presenter?
+    @objc var configurator: {{ module_info.name }}Configurator?
+
+    //MARK: - Data
+
+    private var data = SectionedData<{{ module_info.name }}Section>()
+    private var dataInput = SectionedData<{{ module_info.name }}Section>()
+
+    //MARK: - Outlets
+
+    @IBOutlet weak var tableView: UITableView!
+
+    //MARK: - Life Cycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configurator.configure(self)
+        self.presenter?.viewDidLoad()
+        self.configureTableView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter?.viewWillAppear()
+    }
+
+    //MARK: - Configure
+
+    private func configureTableView() {
+        self.tableView.dataSource = self
+    }
+}
+
+    //MARK: - Show
+
+extension {{ module_info.name }}ViewController: {{ module_info.name }}View {
+
+    func show() {
+        
+    }
+}
+
+    //MARK: - TableView
+
+extension {{ module_info.name }}ViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}

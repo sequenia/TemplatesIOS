@@ -1,0 +1,22 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+@objc protocol {{ module_info.name }}Configurator {
+    func configure(_ controller: {{ module_info.name }}ViewController)
+}
+
+class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Configurator {
+
+    func configure(_ controller: {{ module_info.name }}ViewController) {
+        let router = {{ module_info.name }}RouterImpl(view: controller)
+        controller.presenter = {{ module_info.name }}PresenterImpl(view: controller, router: router)
+    }
+
+}
