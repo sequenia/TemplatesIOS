@@ -70,8 +70,8 @@ class {{ module_info.name }}ViewController: BaseViewController {
         self.tableView.keyboardDismissMode = .onDrag
     }
 
-        private func configureNavBar() {
-        self.title = "button_title_register".localized().uppercased()
+    private func configureNavBar() {
+
     }
 
     //MARK: - Keyboard
@@ -81,6 +81,7 @@ class {{ module_info.name }}ViewController: BaseViewController {
         self.tableView.contentInset = inset
         self.tableView.scrollIndicatorInsets = inset
     }
+
     override func processCloseKeyboard(with size: CGSize) {
         self.tableView.contentInset = .zero
         self.tableView.scrollIndicatorInsets = .zero
