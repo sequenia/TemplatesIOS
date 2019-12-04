@@ -47,7 +47,7 @@ class {{ module_info.name }}ViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configurator.configure(self)
+        self.configurator?.configure(self)
         self.presenter?.viewDidLoad()
         self.configureTableView()
     }
@@ -64,7 +64,7 @@ class {{ module_info.name }}ViewController: BaseViewController {
     }
 }
 
-    //MARK: - Show
+    //MARK: - ViewProtocol
 
 extension {{ module_info.name }}ViewController: {{ module_info.name }}View {
 
@@ -78,11 +78,11 @@ extension {{ module_info.name }}ViewController: {{ module_info.name }}View {
 extension {{ module_info.name }}ViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.data.numberOfSections()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.data.numberOfRowsInSection()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
