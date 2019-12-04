@@ -50,6 +50,12 @@ class {{ module_info.name }}ViewController: BaseViewController {
         self.configurator?.configure(self)
         self.presenter?.viewDidLoad()
         self.configureTableView()
+        self.configureNavBar()
+        self.registerForKeyboardNotifications()
+    }
+
+    deinit {
+        self.unregisterForKeyboardNotifications()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +67,23 @@ class {{ module_info.name }}ViewController: BaseViewController {
 
     private func configureTableView() {
         self.tableView.dataSource = self
+        self.tableView.keyboardDismissMode = .onDrag
+    }
+
+        private func configureNavBar() {
+        self.title = "button_title_register".localized().uppercased()
+    }
+
+    //MARK: - Keyboard
+
+    override func processOpenKeyboard(with size: CGSize) {
+        let inset = UIEdgeInsets(top: 0, left: 0, bottom: size.height, right: 0)
+        self.tableView.contentInset = inset
+        self.tableView.scrollIndicatorInsets = inset
+    }
+    override func processCloseKeyboard(with size: CGSize) {
+        self.tableView.contentInset = .zero
+        self.tableView.scrollIndicatorInsets = .zero
     }
 }
 
@@ -82,7 +105,7 @@ extension {{ module_info.name }}ViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.data.numberOfRowsInSection()
+        return self.data.numberOfItemsIn(section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
