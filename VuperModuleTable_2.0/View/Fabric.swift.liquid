@@ -1,0 +1,37 @@
+//
+//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+class {{ module_info.name }}Fabric: ModelFabric {
+    
+    override func registerCells() {
+        
+    }
+    
+    override func cell(forModelRow modelRow: ModelRow,
+                     atIndexPath indexPath: IndexPath) -> UITableViewCell {
+        guard let tableView = self.tableView else { return UITableViewCell() }
+        return UITableViewCell()
+    }
+    
+    override func header(forModelSection modelSection: ModelSectionHeader?,
+                       atSection section: Int) -> BaseHeader? {
+        guard let tableView = self.tableView else { return nil }
+        guard let headerModel = modelSection else { return nil }
+        return nil
+    }
+
+    override func footer(forModelSection modelSection: ModelSectionFooter?,
+                       atSection section: Int) -> BaseFooter? {
+        guard let tableView = self.tableView else { return nil }
+        guard let footerModel = modelSection else { return nil }
+        return nil
+    }
+
+}
