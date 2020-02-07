@@ -1,5 +1,5 @@
 # Template information section
-name: "VuperModuleTable"
+name: "VuperModuleTable_2.0"
 summary: "Swift Vuper module template with UIViewController playing as a View."
 author: "Sequenia"
 version: "0.1.0"

@@ -8,27 +8,27 @@
 
 import UIKit
 
-class {{ module_info.name }}Fabric: TableViewFabric {
+class {{ module_info.name }}Fabric: ModelFabric {
     
     override func registerCells() {
         
     }
     
-    override func cell(forModelRow modelRow: RowModel,
+    override func cell(forModelRow modelRow: ModelRow,
                      atIndexPath indexPath: IndexPath) -> UITableViewCell {
         guard let tableView = self.tableView else { return UITableViewCell() }
         return UITableViewCell()
     }
     
-    override func header(forModelSection modelSection: SectionViewModel?,
-                       atSection section: Int) -> UIView? {
+    override func header(forModelSection modelSection: ModelSectionHeader?,
+                       atSection section: Int) -> BaseHeader? {
         guard let tableView = self.tableView else { return nil }
         guard let headerModel = modelSection else { return nil }
         return nil
     }
 
-    override func footer(forModelSection modelSection: SectionViewModel?,
-                       atSection section: Int) -> UIView? {
+    override func footer(forModelSection modelSection: ModelSectionFooter?,
+                       atSection section: Int) -> BaseFooter? {
         guard let tableView = self.tableView else { return nil }
         guard let footerModel = modelSection else { return nil }
         return nil
