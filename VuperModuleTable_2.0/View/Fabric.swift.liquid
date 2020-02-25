@@ -1,5 +1,5 @@
 //
-//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.name }}.swift
 //  {{ module_info.project_name }}
 //
 //  Created by {{ developer.name }} on {{ date }}.
@@ -13,13 +13,15 @@ class {{ module_info.name }}Fabric: ModelTableFabric {
     override func registerCells() {
         
     }
-    
+
+ // MARK: - Cell   
     override func cell(forModelRow modelRow: ModelRow,
                      atIndexPath indexPath: IndexPath) -> UITableViewCell {
         guard let tableView = self.tableView else { return UITableViewCell() }
         return UITableViewCell()
     }
-    
+
+// MARK: - Header    
     override func header(forModelSection modelSection: ModelSectionHeader?,
                        atSection section: Int) -> BaseHeader? {
         guard let tableView = self.tableView else { return nil }
@@ -27,6 +29,7 @@ class {{ module_info.name }}Fabric: ModelTableFabric {
         return nil
     }
 
+// MARK: - Footer
     override func footer(forModelSection modelSection: ModelSectionFooter?,
                        atSection section: Int) -> BaseFooter? {
         guard let tableView = self.tableView else { return nil }

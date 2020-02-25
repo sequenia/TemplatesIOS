@@ -1,5 +1,5 @@
 //
-//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.name }}.swift
 //  {{ module_info.project_name }}
 //
 //  Created by {{ developer.name }} on {{ date }}.
@@ -12,11 +12,13 @@ protocol {{ module_info.name }}View : BaseView {
     func show()
 }
 
-class {{ module_info.name }}ViewController : BaseTableViewController, {{ module_info.name }}View {
+class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_info.name }}View {
 
+// MARK: - VUPER
     var presenter: {{ module_info.name }}Presenter?
     var configurator: {{ module_info.name }}Configurator?
 
+// MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.presenter?.viewDidLoad()
@@ -42,10 +44,12 @@ class {{ module_info.name }}ViewController : BaseTableViewController, {{ module_
         self.presenter?.viewDidDisappear()
     }
 
+// MARK: - Init 
     override func initFabric() {
         self.fabric = {{ module_info.name }}Fabric(tableView: self.tableView)
     }
 
+// MARK: - View Protocol
     func show() {
 
     }

@@ -1,5 +1,5 @@
 //
-//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.name }}.swift
 //  {{ module_info.project_name }}
 //
 //  Created by {{ developer.name }} on {{ date }}.
@@ -8,12 +8,13 @@
 
 import UIKit
 
-protocol {{ module_info.name }}Router : BaseRouter {
+protocol {{ module_info.name }}Router: BaseRouter {
 
 }
 
-class {{ module_info.name }}RouterImpl : BaseRouterImpl, {{ module_info.name }}Router {
+class {{ module_info.name }}RouterImpl: BaseRouterImpl, {{ module_info.name }}Router {
 
+// MARK: - VUPER
     weak var view: UIViewController?
 
 }
