@@ -1,0 +1,26 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+class {{ module_info.name }}Fabric: NSObject, BaseTableFabricProtocol {
+    
+// MARK: - Properties 
+    var tableView: UITableView?
+    
+// MARK: - Init
+    required init(tableView: UITableView) {
+        self.tableView = tableView
+    }
+
+ // MARK: - Cell   
+    func cell(for modelRow: RowModel, indexPath: IndexPath) -> UITableViewCell {
+        guard let tableView = self.tableView else { return UITableViewCell() }
+        return UITableViewCell()
+    }
+}

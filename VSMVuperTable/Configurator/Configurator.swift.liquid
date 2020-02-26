@@ -1,0 +1,42 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+@objc protocol {{ module_info.name }}Configurator: class {
+
+}
+
+class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Configurator {
+
+// MARK: - Outlets
+    @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
+
+// MARK: - VUPER    
+    weak var presenter: {{ module_info.name }}PresenterImpl?
+
+// MARK: - Life Cycle
+    override func awakeFromNib() {
+
+        self.configure(viewController: viewController)
+    }
+    
+// MARK: - Configure
+    private func configure(viewController: {{ module_info.name }}ViewController) {
+
+        let router = {{ module_info.name }}RouterImpl()
+        router.view = viewController
+
+        let presenter = {{ module_info.name }}PresenterImpl.init(view: viewController, router: router)
+
+        viewController.presenter = presenter
+        viewController.configurator = self
+        self.presenter = presenter
+    }
+
+}
