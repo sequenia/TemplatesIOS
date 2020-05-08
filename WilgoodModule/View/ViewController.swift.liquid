@@ -6,13 +6,33 @@
 //  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
 //
 
-import UIKit
 import SQDifferenceKit
 
-protocol {{ module_info.name }}View : BaseView {
-    func show()
+// MARK: - {{ module_info.name }}View
+protocol {{ module_info.name }}View: BaseView {
+
+    func show(data: {{ module_info.name }}Data)
 }
 
+// MARK: - {{ module_info.name }}Section
+private enum {{ module_info.name }}Section: Int, PositionSection {
+    
+    case sectionName
+    
+    func position() -> Int {
+        return self.rawValue
+    }
+    
+    var id: String {
+        return String(self.rawValue)
+    }
+    
+    func modelSection() -> ModelSection {
+        return ModelSection(position: self)
+    }
+}
+
+// MARK: - {{ module_info.name }}ViewController
 class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_info.name }}View {
 
 // MARK: - VUPER
@@ -31,7 +51,8 @@ class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_i
     }
 
 // MARK: - View Protocol
-    func show() {
+    func show(data: {{ module_info.name }}Data) {
 
     }
+
 }
