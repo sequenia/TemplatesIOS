@@ -6,19 +6,22 @@
 //  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
 //
 
-import UIKit
 import SQDifferenceKit
 
+// MARK: - {{ module_info.name }}Fabric
 class {{ module_info.name }}Fabric: TableFabric {
     
+// MARK: - Register cells
     override func registerCells() {
         
     }
 
  // MARK: - Cell   
     override func cell(forModelRow modelRow: ModelRow,
-                     atIndexPath indexPath: IndexPath) -> UITableViewCell {
+                       atIndexPath indexPath: IndexPath) -> UITableViewCell {
+                        
         guard let tableView = self.tableView else { return UITableViewCell() }
         return UITableViewCell()
     }
+    
 }

@@ -20,3 +20,6 @@ code_files:
 
 # Configurator
 - {name: Configurator/Configurator.swift, path: Configurator/Configurator.swift.liquid}
+
+# Data
+- {name: Data.swift, path: Data.swift.liquid}
