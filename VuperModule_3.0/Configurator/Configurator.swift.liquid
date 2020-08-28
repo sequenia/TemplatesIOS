@@ -30,7 +30,7 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
 // MARK: - Configure
     private func configure() {
         let router = {{ module_info.name }}RouterImpl()
-        router.view = viewController
+        router.view = self.viewController
 
         let presenter = {{ module_info.name }}PresenterImpl.init(view: self.viewController, router: router)
 
