@@ -24,19 +24,18 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
 
 // MARK: - Life Cycle
     override func awakeFromNib() {
-        self.configure(viewController: viewController)
+        self.configure()
     }
     
 // MARK: - Configure
-    private func configure(viewController: {{ module_info.name }}ViewController) {
-
+    private func configure() {
         let router = {{ module_info.name }}RouterImpl()
         router.view = viewController
 
-        let presenter = {{ module_info.name }}PresenterImpl.init(view: viewController, router: router)
+        let presenter = {{ module_info.name }}PresenterImpl.init(view: self.viewController, router: router)
 
-        viewController.presenter = presenter
-        viewController.configurator = self
+        self.viewController.presenter = presenter
+        self.viewController.configurator = self
         self.presenter = presenter
     }
 
