@@ -1,8 +1,8 @@
 # Template information section
-name: "WilgoodModule"
-summary: "Swift Vuper module template with UIViewController playing as a View."
+name: "VuperModuleTable_3.0"
+summary: "Swift Vuper module template with UITableViewController playing as a View."
 author: "Sequenia"
-version: "0.1.0"
+version: "0.3.0"
 
 # The declarations for code files
 
@@ -22,4 +22,4 @@ code_files:
 - {name: Configurator/Configurator.swift, path: Configurator/Configurator.swift.liquid}
 
 # Data
-- {name: Data.swift, path: Data.swift.liquid}
+- {name: Data/Data.swift, path: Data/Data.swift.liquid}
