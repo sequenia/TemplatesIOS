@@ -16,14 +16,15 @@ protocol {{ module_info.name }}Configurator: class {
 // MARK: - {{ module_info.name }}ConfiguratorImpl
 class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Configurator {
 
-// MARK: - Outlets
-    @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
-
 // MARK: - VUPER    
     weak var presenter: {{ module_info.name }}PresenterImpl?
 
+// MARK: - Outlets
+    @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
+
 // MARK: - Life Cycle
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.configure()
     }
     

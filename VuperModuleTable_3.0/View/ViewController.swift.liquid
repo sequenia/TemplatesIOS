@@ -17,14 +17,14 @@ protocol {{ module_info.name }}View: BaseView {
 // MARK: - {{ module_info.name }}Section
 private enum {{ module_info.name }}Section: Int, PositionSection {
     
-    case sectionName
-    
-    func position() -> Int {
-        return self.rawValue
-    }
+    case sectionName = 0
     
     var id: String {
         return String(self.rawValue)
+    }
+    
+    func position() -> Int {
+        return self.rawValue
     }
     
     func modelSection() -> ModelSection {
@@ -45,8 +45,8 @@ class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_i
         self.presenter?.viewDidLoad()
     }
 
-// MARK: - Init 
-    override func initFabric() {
+// MARK: - Fabric 
+    override func setupFabric() {
         self.fabric = {{ module_info.name }}Fabric(tableView: self.tableView)
     }
 
