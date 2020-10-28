@@ -30,6 +30,12 @@ class {{ module_info.name }}PresenterImpl: {{ module_info.name }}Presenter {
         self.router = router
     }
 
+// MARK: - Life Cycle
+    func viewDidLoad() {
+        self.view?.show(data: self.data)
+    }
+
+// MARK: - Set Use Сases
     func setUseCase<T>(_ useCase: T) -> Self {
         switch useCase {
        
@@ -38,11 +44,6 @@ class {{ module_info.name }}PresenterImpl: {{ module_info.name }}Presenter {
         }
         
         return self
-    }
-
-// MARK: - Life Cycle
-    func viewDidLoad() {
-        self.view?.show(data: self.data)
     }
     
 }
