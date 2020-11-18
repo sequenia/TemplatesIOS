@@ -33,7 +33,9 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
         let router = {{ module_info.name }}RouterImpl()
         router.view = self.viewController
 
-        let presenter = {{ module_info.name }}PresenterImpl.init(view: self.viewController, router: router)
+        let useCases = {{ module_info.name }}UseCases()
+
+        let presenter = {{ module_info.name }}PresenterImpl(view: self.viewController, router: router, useCases: useCases)
 
         self.viewController.presenter = presenter
         self.viewController.configurator = self
