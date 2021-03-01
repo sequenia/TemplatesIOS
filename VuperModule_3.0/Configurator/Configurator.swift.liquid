@@ -20,11 +20,12 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
     weak var presenter: {{ module_info.name }}PresenterImpl?
 
 // MARK: - Outlets
-    @IBOutlet weak var viewController: {{ module_info.name }}ViewController!
+    @IBOutlet private weak var viewController: {{ module_info.name }}ViewController!
 
 // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+
         self.configure()
     }
     
@@ -41,5 +42,4 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
         self.viewController.configurator = self
         self.presenter = presenter
     }
-
 }

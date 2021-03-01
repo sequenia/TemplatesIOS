@@ -24,6 +24,7 @@ class {{ module_info.name }}ViewController: BaseViewController, {{ module_info.n
 // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.presenter?.viewDidLoad()
     }
 
