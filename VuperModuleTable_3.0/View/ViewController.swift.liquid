@@ -17,7 +17,7 @@ protocol {{ module_info.name }}View: BaseView {
 // MARK: - {{ module_info.name }}Section
 private enum {{ module_info.name }}Section: Int, PositionSection {
     
-    case sectionName = 0
+    case sectionName
     
     var id: String {
         return String(self.rawValue)

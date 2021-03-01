@@ -9,41 +9,36 @@
 // MARK: - {{ module_info.name }}Presenter
 protocol {{ module_info.name }}Presenter: class {
 
-    init(view: {{ module_info.name }}View, router: {{ module_info.name }}Router)
-
     func viewDidLoad()
 }
 
 // MARK: - {{ module_info.name }}PresenterImpl
-class {{ module_info.name }}PresenterImpl: {{ module_info.name }}Presenter {
+class {{ module_info.name }}PresenterImpl {
 
 // MARK: - VUPER 
-    weak var view: {{ module_info.name }}View?
-    var router: {{ module_info.name }}Router?
+    private weak var view: {{ module_info.name }}View?
+    private var router: {{ module_info.name }}Router?
 
 // MARK: - Data
     private var data = {{ module_info.name }}Data()
 
+// MARK: - UseCases
+    private var useCases: {{ module_info.name }}UseCases
+
 // MARK: - Init
-    required init(view: {{ module_info.name }}View, router: {{ module_info.name }}Router) {
+    required init(view: {{ module_info.name }}View, router: {{ module_info.name }}Router, useCases: {{ module_info.name }}UseCases) {
         self.view = view
         self.router = router
+        self.useCases = useCases
     }
+}
+
+// MARK: - {{ module_info.name }}Presenter
+extension {{ module_info.name }}PresenterImpl: {{ module_info.name }}Presenter {
 
 // MARK: - Life Cycle
     func viewDidLoad() {
         self.view?.show(data: self.data)
     }
 
-// MARK: - Set Use Сases
-    func setUseCase<T>(_ useCase: T) -> Self {
-        switch useCase {
-       
-        default:
-            break
-        }
-        
-        return self
-    }
-    
 }
