@@ -42,6 +42,7 @@ class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_i
 // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.presenter?.viewDidLoad()
     }
 
