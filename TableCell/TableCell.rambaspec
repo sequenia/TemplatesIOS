@@ -1,0 +1,16 @@
+# Template information section
+name: TableCell
+summary: DifferenceKit-based table cell
+author: Sequenia
+version: 1.0.0
+license: MIT
+
+# The declarations for code files
+code_files:
+- {name: ModelRow.swift, path: Code/ModelRow.swift.liquid}
+- {name: Cell.swift, path: Code/Cell.swift.liquid}
+- {name: Cell.xib, path: Code/Cell.xib.liquid}
+
+# Template dependencies
+# dependencies:
+# - SQDevKit
