@@ -7,10 +7,10 @@ license: MIT
 
 # The declarations for code files
 code_files:
-- {name: ModelRow.swift, path: Code/ModelRow.swift.liquid}
-- {name: Fabric.swift, path: Code/Fabric.swift.liquid}
-- {name: Cell.swift, path: Code/Cell.swift.liquid}
-- {name: Cell.xib, path: Code/Cell.xib.liquid}
+- {name: TableModelRow.swift, path: Code/TableModelRow.swift.liquid}
+- {name: CollectionFabric.swift, path: Code/CollectionFabric.swift.liquid}
+- {name: TableCell.swift, path: Code/TableCell.swift.liquid}
+- {name: TableCell.xib, path: Code/TableCell.xib.liquid}
 
 # Template dependencies
 dependencies:

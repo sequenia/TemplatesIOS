@@ -9,7 +9,7 @@
 import UIKit
 import SQDifferenceKit
 
-class {{ module_info.name }}CollectionCell: BaseTableCollectionCell {
+class {{ module_info.name }}TableCell: BaseTableCollectionCell {
 
 // MARK: - Properties
     weak var counterViewDelegate: CounterViewDelegate?
@@ -36,6 +36,11 @@ class {{ module_info.name }}CollectionCell: BaseTableCollectionCell {
 // MARK: - Fabric initialization
     override func initFabric() {
         self.fabric = {{ module_info.name }}CollectionFabric(collectionView: self.collectionView)
+    }
+
+// MARK: - Cell Size
+    override func sizeCell() -> CGSize {
+        return CGSize(width: 44, height: 44)
     }
     
 // MARK: - Overrides
