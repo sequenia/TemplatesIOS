@@ -10,7 +10,7 @@ code_files:
 - {name: ModelRow.swift, path: Code/ModelRow.swift.liquid}
 - {name: Fabric.swift, path: Code/Fabric.swift.liquid}
 - {name: Cell.swift, path: Code/Cell.swift.liquid}
-#- {name: Cell.xib, path: Code/Cell.xib.liquid}
+- {name: Cell.xib, path: Code/Cell.xib.liquid}
 
 # Template dependencies
 dependencies:
