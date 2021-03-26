@@ -10,7 +10,7 @@ import UIKit
 import SQDifferenceKit
 
 // MARK: - {{ module_info.name }} Model Row
-class {{ module_info.name }}CollectionModelRow: CollectionModelRow {
+class {{ module_info.name }}TableModelRow: CollectionModelRow {
 
 // MARK: - Properties
     // Put model fields here. For example:
@@ -33,7 +33,7 @@ class {{ module_info.name }}CollectionModelRow: CollectionModelRow {
 
 // MARK: - Comparison
     override func isContentEqual(to source: ModelRow) -> Bool {
-        guard let source = source as? {{ module_info.name }}CollectionModelRow else { return false }
+        guard let source = source as? {{ module_info.name }}TableModelRow else { return false }
         
         return self.differenceIdentifier == source.differenceIdentifier && 
                self.isSectionsContentEqual(to: source.sections)
