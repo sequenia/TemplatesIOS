@@ -1,0 +1,42 @@
+//
+//  {{ module_info.name }}CollectionFabric.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+import SQDevKit
+import SQDifferenceKit
+
+class {{ module_info.name }}CollectionFabric: SQCollectionFabric {
+    
+// MARK: - Properties
+  // Place here some necessary properties (delegates of cells)
+  /* 
+    weak var delegate: ItemCellDelegate?
+  */
+    
+// MARK: - Initialization
+    // Override default initializer if your must save some delegate from view
+    /* 
+    init(collectionView: UICollectionView, 
+         delegate: ItemCellDelegate) {
+        super.init(collectionView: collectionView)
+        
+        self.delegate = delegate
+    }
+    */
+    
+// MARK: - Register Cells
+    override func registerCells() {
+        // Place here all necessary cells registrations
+    }
+    
+// MARK: - Working with cells
+    override func cell(forModelRow modelRow: ModelRow,
+                       atIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+}

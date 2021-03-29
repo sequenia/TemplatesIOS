@@ -1,0 +1,48 @@
+//
+//  {{ module_info.name }}CollectionModelRow.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+import SQDifferenceKit
+
+// MARK: - {{ module_info.name }} Model Row
+class {{ module_info.name }}CollectionModelRow: CollectionModelRow {
+
+// MARK: - Properties
+    // Put model fields here. For example:
+    /* 
+    private(set) title: String?
+    */
+    
+// MARK: - Init
+    // Place your initialized here. For example
+    /* 
+    convenience init(id: String, 
+                     sections: [Section], 
+                     title: String?) {
+        self.init(id: id, 
+                  sections: sections)
+        
+        self.title = title
+    }
+    */
+
+// MARK: - Comparison
+    override func isContentEqual(to source: ModelRow) -> Bool {
+        guard let source = source as? {{ module_info.name }}CollectionModelRow else { return false }
+        
+        return self.differenceIdentifier == source.differenceIdentifier && 
+               self.isSectionsContentEqual(to: source.sections)
+    }
+    
+// MARK: - Coping
+    override func copy() -> ModelRow {
+        let copy = type(of: self).init(id: self.differenceIdentifier,
+                                       sections: self.sections)
+        return copy
+    }
+}

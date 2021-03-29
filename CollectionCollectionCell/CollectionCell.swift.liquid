@@ -1,0 +1,73 @@
+//
+//  {{ module_info.name }}CollectionCell.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+import SQDifferenceKit
+
+class {{ module_info.name }}CollectionCell: BaseCollectionCollectionCell {
+
+// MARK: - IBOutlets
+    // Place your IBOutlets. For example
+    /* 
+    @IBOutlet private weak var titleLabel: UILabel!
+    */
+
+// MARK: - IBActions
+    // Place your IBActions. For example
+    
+    /* 
+    @IBAction private func onArrowLeftClicked(_ sender: Any) {
+        // I like to move it...
+    }
+
+    @IBAction private func onArrowRightClicked(_ sender: Any) {
+        // MOVE IT!
+    }
+    */
+
+// MARK: - Fabric initialization
+    override func initFabric() {
+        self.fabric = {{ module_info.name }}CollectionFabric(collectionView: self.collectionView)
+    }
+
+// MARK: - Cell Size
+    override func sizeCell() -> CGSize {
+        return CGSize(width: 44, height: 44)
+    }
+    
+// MARK: - Overrides
+   /* override func awakeFromNib() {
+     super.awakeFromNib()
+
+     // Do something awesome
+   }
+   */
+    
+// MARK: - Bind
+  // Override superclass bind method...
+  /*
+    override func bind(model: CollectionModelRow,
+                       delegate: CollectionCellDelegate?) {
+        super.bind(model: model, delegate: delegate)
+
+        // Do something great
+    }
+  */
+
+  // ... or use custom bind method if it needed
+  /*
+    func bind(model: CollectionModelRow,
+              delegate: CollectionCellDelegate?,
+              itemCellDelegate: ItemCellDelegate) {
+        self.bind(model: model, delegate: delegate)
+
+        // Do something great twice!
+    }
+  */
+
+}
