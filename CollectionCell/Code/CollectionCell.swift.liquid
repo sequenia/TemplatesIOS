@@ -1,0 +1,26 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+// MARK: - {{ module_info.name }} CollectionCell
+class {{ module_info.name }}CollectionCell: UICollectionViewCell {
+    
+// MARK: - Properties
+    private var model: {{ module_info.name }}ModelRow?
+   /*
+// MARK: - IBOutlets
+    @IBOutlet private weak var titleLabel: UILabel!
+    */
+// MARK: - Binding
+    public func bind(withModel model: {{ module_info.name }}ModelRow) {
+        self.model = model
+     /* self.titleLabel.text = model.title */
+    }
+}
