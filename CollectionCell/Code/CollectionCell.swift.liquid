@@ -11,16 +11,28 @@ import UIKit
 
 // MARK: - {{ module_info.name }} CollectionCell
 class {{ module_info.name }}CollectionCell: UICollectionViewCell {
-    
+
 // MARK: - Properties
     private var model: {{ module_info.name }}ModelRow?
-   /*
+    
 // MARK: - IBOutlets
+    // Place your IBOutlets. For example
+    /* 
     @IBOutlet private weak var titleLabel: UILabel!
     */
+
+// MARK: - Overrides
+   /* override func awakeFromNib() {
+     super.awakeFromNib()
+
+     // Do something awesome
+   }
+   */
+
 // MARK: - Binding
-    public func bind(withModel model: {{ module_info.name }}ModelRow) {
+    func bind(withModel model: {{ module_info.name }}ModelRow?) {
         self.model = model
-     /* self.titleLabel.text = model.title */
+        
+        // Do something amazing
     }
 }
