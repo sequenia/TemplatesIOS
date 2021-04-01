@@ -1,0 +1,38 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+// MARK: - {{ module_info.name }} CollectionCell
+class {{ module_info.name }}CollectionCell: UICollectionViewCell {
+
+// MARK: - Properties
+    private var model: {{ module_info.name }}ModelRow?
+    
+// MARK: - IBOutlets
+    // Place your IBOutlets. For example
+    /* 
+    @IBOutlet private weak var titleLabel: UILabel!
+    */
+
+// MARK: - Overrides
+    override func awakeFromNib() {
+     super.awakeFromNib()
+
+     // Do something awesome
+   }
+   
+
+// MARK: - Binding
+    func bind(withModel model: {{ module_info.name }}ModelRow?) {
+        self.model = model
+        
+        // Do something amazing
+    }
+}

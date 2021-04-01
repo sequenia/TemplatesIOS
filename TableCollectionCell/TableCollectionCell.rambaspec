@@ -1,0 +1,17 @@
+# Template information section
+name: TableCollectionCell
+summary: DifferenceKit-based table with collection inside
+author: Sequenia
+version: 1.0.0
+license: MIT
+
+# The declarations for code files
+code_files:
+- {name: TableModelRow.swift, path: Code/TableModelRow.swift.liquid}
+- {name: CollectionFabric.swift, path: Code/CollectionFabric.swift.liquid}
+- {name: TableCell.swift, path: Code/TableCell.swift.liquid}
+- {name: TableCell.xib, path: Code/TableCell.xib.liquid}
+
+# Template dependencies
+dependencies:
+- SQDevKit

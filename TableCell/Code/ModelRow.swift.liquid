@@ -1,0 +1,49 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+import SQDifferenceKit
+
+// MARK: - {{ module_info.name }} Model Row
+class {{ module_info.name }}ModelRow: ModelRow {
+
+// MARK: - Properties
+    // Put model fields here. For example:
+    /* 
+    private(set) title: String?
+    private(set) count: Int?
+    private(set) enabled = false
+    */
+    
+// MARK: - Init
+    // Place your initializer here. For example
+    /* 
+    convenience init(id: String, 
+                     title: String?, 
+                     count: Int?, 
+                     enabled: Bool = false) {
+        self.init(id: id)
+        
+        self.title = title
+        self.count = count
+        self.enabled = enabled
+    }
+    */
+
+// MARK: - Comparison
+    override func isContentEqual(to source: ModelRow) -> Bool {
+        guard let source = source as? {{ module_info.name }}ModelRow else { return false }
+
+        return self.differenceIdentifier == source.differenceIdentifier
+    }
+    
+// MARK: - Coping
+    override func copy() -> ModelRow {
+        return type(of: self).init(id: self.differenceIdentifier)
+    }
+}
