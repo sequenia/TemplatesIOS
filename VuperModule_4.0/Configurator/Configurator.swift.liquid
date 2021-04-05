@@ -14,7 +14,7 @@ protocol {{ module_info.name }}Configurator: class {
 }
 
 // MARK: - {{ module_info.name }}ConfiguratorImpl
-class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Configurator {
+class {{ module_info.name }}ConfiguratorImpl: NSObject {
 
 // MARK: - VUPER    
     weak var presenter: {{ module_info.name }}PresenterImpl?
@@ -42,4 +42,8 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject, {{ module_info.name }}Co
         self.viewController.configurator = self
         self.presenter = presenter
     }
+}
+
+extension {{ module_info.name }}ConfiguratorImpl: {{ module_info.name }}Configurator {
+    // Put here all implementations of {{ module_info.name }}Configurator 
 }
