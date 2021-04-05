@@ -1,0 +1,22 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+// MARK: - {{ module_info.name }}Router
+protocol {{ module_info.name }}Router: BaseRouter {
+
+}
+
+// MARK: - {{ module_info.name }}RouterImpl
+class {{ module_info.name }}RouterImpl: BaseRouterImpl, {{ module_info.name }}Router {
+
+// MARK: - VUPER
+    weak var view: {{ module_info.name }}ViewController?
+
+}
