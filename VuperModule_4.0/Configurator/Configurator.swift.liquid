@@ -36,7 +36,9 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject {
 
         let useCases = {{ module_info.name }}UseCases()
 
-        let presenter = {{ module_info.name }}PresenterImpl(view: self.viewController, router: router, useCases: useCases)
+        let presenter = {{ module_info.name }}PresenterImpl(view: self.viewController,
+                                                            router: router,
+                                                            useCases: useCases)
 
         self.viewController.presenter = presenter
         self.viewController.configurator = self
@@ -45,5 +47,6 @@ class {{ module_info.name }}ConfiguratorImpl: NSObject {
 }
 
 extension {{ module_info.name }}ConfiguratorImpl: {{ module_info.name }}Configurator {
+    
     // Put here all implementations of {{ module_info.name }}Configurator 
 }

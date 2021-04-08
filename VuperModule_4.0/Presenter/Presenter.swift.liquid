@@ -26,7 +26,10 @@ class {{ module_info.name }}PresenterImpl {
     private var useCases: {{ module_info.name }}UseCases
 
 // MARK: - Init
-    required init(view: {{ module_info.name }}View, router: {{ module_info.name }}Router, useCases: {{ module_info.name }}UseCases) {
+    required init(view: {{ module_info.name }}View,
+                  router: {{ module_info.name }}Router,
+                  useCases: {{ module_info.name }}UseCases) {
+                      
         self.view = view
         self.router = router
         self.useCases = useCases
