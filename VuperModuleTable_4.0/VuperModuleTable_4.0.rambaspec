@@ -1,0 +1,24 @@
+# Template information section
+name: "VuperModuleTable_4.0"
+summary: "Swift Vuper module template with UITableViewController playing as a View."
+author: "Sequenia"
+version: "0.4.0"
+
+# The declarations for code files
+
+code_files:
+# View layer
+- {name: View/Fabric.swift, path: View/Fabric.swift.liquid}
+- {name: View/ViewController.swift, path: View/ViewController.swift.liquid}
+- {name: View/ViewController.storyboard, path: View/ViewController.storyboard.liquid}
+
+# Presenter layer
+- {name: Presenter/Presenter.swift, path: Presenter/Presenter.swift.liquid}
+- {name: Presenter/Data.swift, path: Presenter/Data.swift.liquid}
+- {name: Presenter/UseCases.swift, path: Presenter/UseCases.swift.liquid}
+
+# Router layer
+- {name: Router/Router.swift, path: Router/Router.swift.liquid}
+
+# Configurator
+- {name: Configurator/Configurator.swift, path: Configurator/Configurator.swift.liquid}

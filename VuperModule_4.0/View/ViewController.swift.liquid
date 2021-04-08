@@ -1,0 +1,36 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+// MARK: - {{ module_info.name }}View
+protocol {{ module_info.name }}View: BaseView {
+
+    func show(data: {{ module_info.name }}Data)
+}
+
+// MARK: - {{ module_info.name }}ViewController
+class {{ module_info.name }}ViewController: BaseViewController, {{ module_info.name }}View {
+
+// MARK: - VUPER
+    var presenter: {{ module_info.name }}Presenter?
+    var configurator: {{ module_info.name }}Configurator?
+
+// MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.presenter?.viewDidLoad()
+    }
+
+// MARK: - View Protocol
+    func show(data: {{ module_info.name }}Data) {
+
+    }
+
+}

@@ -1,0 +1,60 @@
+//
+//  {{ module_info.name }}.swift
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+import SQDifferenceKit
+
+// MARK: - {{ module_info.name }}View
+protocol {{ module_info.name }}View: BaseView {
+
+    func show(data: {{ module_info.name }}Data)
+}
+
+// MARK: - {{ module_info.name }}Section
+private enum {{ module_info.name }}Section: Int, PositionSection {
+    
+    case sectionName
+    
+    var id: String {
+        return String(self.rawValue)
+    }
+    
+    func position() -> Int {
+        return self.rawValue
+    }
+    
+    func modelSection() -> ModelSection {
+        return ModelSection(position: self)
+    }
+}
+
+// MARK: - {{ module_info.name }}ViewController
+class {{ module_info.name }}ViewController: BaseTableViewController, {{ module_info.name }}View {
+
+// MARK: - VUPER
+    var presenter: {{ module_info.name }}Presenter?
+    var configurator: {{ module_info.name }}Configurator?
+
+// MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.presenter?.viewDidLoad()
+    }
+
+// MARK: - Fabric 
+    override func setupFabric() {
+        self.fabric = {{ module_info.name }}Fabric(tableView: self.tableView, view: self)
+    }
+
+// MARK: - View Protocol
+    func show(data: {{ module_info.name }}Data) {
+
+    }
+
+}
