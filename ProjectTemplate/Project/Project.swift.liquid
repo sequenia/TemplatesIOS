@@ -1,0 +1,91 @@
+import ProjectDescription
+import ProjectDescriptionHelpers
+
+let appVersion = "1.0.0"
+
+let settings = SettingsDictionary()
+    .debugInformationFormat("dwarf-with-dsym")
+    .codeSignIdentity("iPhone Developer")
+    .automaticCodeSigning(devTeam: "4XJM4GSZPH")
+    .marketingVersion(appVersion)
+    .merging(["DEVELOPMENT_LANGUAGE" : "en"])
+    .merging(["CURRENT_PROJECT_VERSION" : "1"])
+    .merging(["VERSIONING_SYSTEM" : "apple-generic"])
+
+let debugSchemeArgs = Arguments(
+    environment: [ : ],
+    launchArguments: [ : ]
+)
+
+let releaseSchemeArgs = Arguments(
+    environment: [ : ],
+    launchArguments: [ : ]
+)
+
+let project = Project(name: "{{ module_info.name }}",
+                      organizationName: "Sequenia",
+                      packages: [
+                        .package(url: "https://github.com/sequenia/SQDevKit.git", .upToNextMajor(from: "0.3.0"))
+                      ],
+                      settings: Settings(
+                        base: settings,
+                        debug: Configuration(xcconfig: "./Configs/Debug/Config-debug.xcconfig"),
+                        release: Configuration(xcconfig: "./Configs/Release/Config-release.xcconfig")
+                      ),
+                      targets: [
+                        Target(name: "{{ module_info.name }}",
+                               platform: .iOS,
+                               product: .app,
+                               productName: "{{ module_info.name }}",
+                               bundleId: "$(APP_BUNDLE_ID)",
+                               deploymentTarget: DeploymentTarget.iOS(targetVersion: "13.0",
+                                                                      devices: .iphone),
+                               infoPlist: "./Configs/Info.plist",
+                               sources: [
+                                  "./Sources/**"
+                               ],
+                               resources: [
+                                  "./Resources/**",
+                                  "./Sources/**/*.storyboard",
+                                  "./Sources/**/*.xib"
+                               ],
+                               entitlements: "./Configs/Project.entitlements",
+                               actions: [
+                                .pre(path: "./RunScripts/r_swift.sh",
+                                     name: "R.swift",
+                                     inputPaths: [
+                                        "$TEMP_DIR/rswift-lastrun"
+                                     ],
+                                     outputPaths: [
+                                        "$SRCROOT/Sources/R.generated.swift"
+                                     ]),
+                                     /*
+                                .post(path: "./RunScripts/crashlytics.sh",
+                                      name: "Crashlytics",
+                                      inputPaths: [
+                                        "$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+                                        "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}"
+                                      ]),*/
+                                .post(path:"./RunScripts/linter.sh",
+                                      name: "Linter",
+                                      basedOnDependencyAnalysis: false),
+                                .post(path:"./RunScripts/highlight_todo.sh",
+                                      name: "Highlight TODO",
+                                      basedOnDependencyAnalysis: false),
+                               ],
+                               dependencies: [
+                                    .cocoapods(path: "../"),
+                                    .package(product: "SQExtensions"),
+                                    .package(product: "SQKeyboard"),
+                                    .package(product: "SQLists"),
+                                    .package(product: "SQVUPER"),
+                               ]
+                        )
+                      ],
+                      schemes: [
+                          .debug(forTargers: ["{{ module_info.name }}"], arguments: debugSchemeArgs),
+                          .release(forTargers: ["{{ module_info.name }}"], arguments: releaseSchemeArgs)
+                      ],
+                      additionalFiles: [
+                          .folderReference(path: "./RunScripts")
+                      ])

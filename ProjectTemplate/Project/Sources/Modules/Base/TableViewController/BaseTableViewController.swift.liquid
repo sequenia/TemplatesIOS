@@ -1,0 +1,197 @@
+//
+//  BaseTableViewController.swift
+//
+//  Copyright © 2021 Sequenia OOO. All rights reserved.
+//
+
+import UIKit
+import SQDifferenceKit
+import SQLists
+import SQKeyboard
+
+// MARK: - BaseTableViewController
+class BaseTableViewController: BaseViewController,
+                               BaseTableView,
+                               DiffTableProtocol, CollectionCellDelegate {
+
+// MARK: - Properties
+    var fabric: SQTableFabric!
+    var isShowBottomSheetController = false
+    var bottomInset: CGFloat = 0.0
+    var refreshControl: UIRefreshControl?
+
+// MARK: - Outlets
+    @IBOutlet internal weak var tableView: UITableView!
+
+// MARK: - Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.setupTableView()
+    }
+
+// MARK: - Keyboard
+    override func handleKeyboard(withFrame frame: CGRect,
+                                 animationDuration: TimeInterval,
+                                 animationOptions: UIView.AnimationOptions,
+                                 isShow: Bool) {
+        
+        UIView.animate(withDuration: 0,
+                       delay: 0,
+                       options: .curveLinear,
+                       animations: {
+
+        }, completion: { (_) in
+            UIView.animate(withDuration: animationDuration,
+                           delay: 0,
+                           options: [animationOptions],
+                           animations: {
+                            
+                self.isShowBottomSheetController = false
+
+                var inset = self.tableView.contentInset
+                inset.bottom = (isShow && !self.isShowBottomSheetController) ? frame.height : self.bottomInset
+                self.tableView.contentInset = inset
+            }, completion: nil)
+        })
+    }
+
+// MARK: - Setup table view
+    internal func setupTableView() {
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+
+        self.tableView.keyboardDismissMode = .interactive
+
+        self.tableView.separatorStyle = .none
+        if self.tableView.style == .plain {
+            self.tableView.tableHeaderView = UIView(frame: .zero)
+            self.tableView.tableFooterView = UIView(frame: .zero)
+        }
+        self.setupFabric()
+    }
+
+    internal func setupFabric() {
+        assertionFailure("not init fabric")
+    }
+
+// MARK: - Refresh control
+    internal func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.onRefreshControlChanged), for: .valueChanged)
+        self.tableView.refreshControl = refreshControl
+
+        self.refreshControl = refreshControl
+    }
+
+    @objc
+    internal func onRefreshControlChanged() {}
+    
+// MARK: - Collection Cell Delegate
+    internal func saveScrollPosition(_ position: CGPoint,
+                                     forModel model: CollectionModelRow?) {
+        guard let model = model,
+              let sectionIndex = self.data.firstIndex(where: { $0.elements.contains(where: { $0.differenceIdentifier == model.differenceIdentifier }) }) else { return }
+
+        let key = self.cacheKey(forModel: model, inSection: sectionIndex)
+        self.storeScrollPosition(position, forKey: key)
+    }
+
+    internal func collectionModel(_ model: CollectionModelRow?,
+                                  willShowModelRow modelRow: ModelRow?,
+                                  inSection: ModelSection?) { }
+
+    internal func collectionModel(_ model: CollectionModelRow?,
+                                  didSelectModel modelRow: ModelRow?,
+                                  inSection: ModelSection?) { }
+}
+
+// MARK: - UITableView Data Source
+extension BaseTableViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.data.count
+    }
+
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return self.data[section].elements.count
+    }
+
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = self.data[indexPath.section].elements[indexPath.row]
+
+        return self.fabric.cell(forModelRow: model,
+                                atIndexPath: indexPath)
+    }
+}
+
+// MARK: - UITableView Delegate
+extension BaseTableViewController: UITableViewDelegate {
+
+// MARK: - Displaying cells
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        self.storeHeight(forCell: cell, atIndexPath: indexPath)
+        self.restoreScrollPosition(forCell: cell, atIndexPath: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView,
+                   didEndDisplaying cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        self.storeScrollPosition(forCell: cell, atIndexPath: indexPath)
+    }
+
+// MARK: - Section header
+    func tableView(_ tableView: UITableView,
+                   estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return (self.data[section].model.header == nil) ? CGFloat.leastNonzeroMagnitude : 44
+    }
+
+    func tableView(_ tableView: UITableView,
+                   heightForHeaderInSection section: Int) -> CGFloat {
+        return (self.data[section].model.header == nil) ? 0 : UITableView.automaticDimension
+    }
+
+    func tableView(_ tableView: UITableView,
+                   viewForHeaderInSection section: Int) -> UIView? {
+        return self.fabric.header(forModelSection: self.data[section].model.header,
+                                  atSection: section)
+    }
+
+// MARK: - Rows height
+    func tableView(_ tableView: UITableView,
+                   estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.height(forCellAtIndexPath: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+
+// MARK: - Section footer
+    func tableView(_ tableView: UITableView,
+                   estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return (self.data[section].model.footer == nil) ? CGFloat.leastNonzeroMagnitude : 44
+    }
+
+    func tableView(_ tableView: UITableView,
+                   heightForFooterInSection section: Int) -> CGFloat {
+        return (self.data[section].model.footer == nil) ? 0 : UITableView.automaticDimension
+    }
+
+    func tableView(_ tableView: UITableView,
+                   viewForFooterInSection section: Int) -> UIView? {
+        return self.fabric.footer(forModelSection: self.data[section].model.footer,
+                                  atSection: section)
+    }
+
+// MARK: - Interaction with cells
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}

@@ -1,0 +1,30 @@
+//
+//  BaseConfigurator.swift
+//
+//  Copyright © 2021 Sequenia OOO. All rights reserved.
+//
+
+import Foundation
+import SQVUPER
+
+// MARK: - BaseConfigurator
+protocol BaseConfigurator: Configurator {
+
+}
+
+// MARK: - BaseConfiguratorImpl
+class BaseConfiguratorImpl: NSObject, BaseConfigurator {
+
+// MARK: - Live cycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.configure()
+    }
+
+// MARK: - Methods
+    internal func configure() {
+
+    }
+
+}

@@ -1,0 +1,5 @@
+TAGS="TODO:|FIXME:"
+find "${SRCROOT}/" -type f \( -name "*.h" -or -name "*.m" -or -name "*.swift" \) -print0 \
+| xargs -0 egrep --with-filename --line-number --only-matching "($TAGS).*\$" \
+| grep -v -e "Pods" -v -e "fastlane" -v -e "Scripts" \
+| perl -p -e "s/($TAGS)/ warning: \$1/"

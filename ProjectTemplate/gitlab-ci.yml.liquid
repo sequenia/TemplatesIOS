@@ -1,0 +1,118 @@
+# Описание всех возможных job-ов, которые могут исполняться в рамках pipeline
+stages:
+  - beta_deploy
+
+# Общие настройки
+.settings:
+  tags:
+    - ios
+
+# Настройка ssh
+.prepare_ssh:
+  script: &prepare_ssh
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$GIT_LAB_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+# Задание констант и команд
+.define_constants:
+  script: &define_constants
+    - export SSH_CONNECT="ssh $BUILD_MACHINE_SSH_USER@$BUILD_MACHINE_ADDRESS -p $BUILD_MACHINE_SSH_PORT"
+    - export PROJECT_FOLDER=$BUILD_MACHINE_WORKSPACE/$CI_PROJECT_NAME
+    - export GIT_REPO_PATH=git@$GITLAB_HOST:$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME.git
+    - export GIT_REF_URL="refs/pipelines/$CI_PIPELINE_ID"
+
+# Подготовка папок на машине-сборщике
+.prepare_folders:
+  script: &prepare_folders
+    - $SSH_CONNECT "mkdir -p $BUILD_MACHINE_WORKSPACE"
+
+# Инициализация репозитория
+.init_repo:
+  script: &init_repo
+    - |
+      $SSH_CONNECT \
+      " \
+      source ~/.zshrc && \
+      [ ! -d $PROJECT_FOLDER ] && git clone $GIT_REPO_PATH $PROJECT_FOLDER || echo \"Already cloned\" && \
+      exit && \
+      "
+
+# Обновление репозитория
+.update_repo:
+  script: &update_repo
+    - |
+      $SSH_CONNECT \
+      " \
+      source ~/.zshrc && \
+      cd $PROJECT_FOLDER && \
+      git reset --hard && \
+      git fetch --prune && \
+      git checkout $CI_BUILD_REF_NAME && \
+      git pull origin $CI_BUILD_REF_NAME && \
+      exit && \
+      "
+
+# Генерация .env-файла
+.init_environment:
+  script: &init_environment
+    - touch .env.default
+    # Папка проекта
+    - echo PROJECT_FOLDER="$PROJECT_FOLDER" >> .env.default
+    # Переменные для соедиения с App Store Connect
+    - echo APP_STORE_CONNECT_API_KEY_KEY_ID="$APP_STORE_AUTH_KEY_ID" >> .env.default
+    - echo APP_STORE_CONNECT_API_KEY_ISSUER_ID="$APP_STORE_AUTH_KEY_ISSUER" >> .env.default
+    - echo APP_STORE_CONNECT_API_KEY_KEY="$APP_STORE_AUTH_KEY_CONTENT" >> .env.default
+    # Связка ключей для сертификатов
+    - echo KEYCHAIN_NAME="$BUILD_MACHINE_KEYCHAIN_NAME" >> .env.default
+    - echo KEYCHAIN_PASSWORD="$BUILD_MACHINE_KEYCHAIN_PASSWORD" >> .env.default
+    - echo FL_UNLOCK_KEYCHAIN_PATH="$BUILD_MACHINE_KEYCHAIN_NAME" >> .env.default
+    - echo FL_UNLOCK_KEYCHAIN_PASSWORD="$BUILD_MACHINE_KEYCHAIN_PASSWORD" >> .env.default
+    # Переменные для утилиты match
+    - echo MATCH_GIT_URL="$CERTIFICATES_GIT_REPO" >> .env.default
+    - echo MATCH_KEYCHAIN_NAME="$BUILD_MACHINE_KEYCHAIN_NAME" >> .env.default
+    - echo MATCH_PASSWORD="$CERTIFICATES_PASSWORD" >> .env.default
+    - echo MATCH_KEYCHAIN_PASSWORD="$BUILD_MACHINE_KEYCHAIN_PASSWORD" >> .env.default
+    # Путь к XCode
+    - echo XCODE_PATH="$BUILD_MACHINE_XCODE_PATH" >> .env.default
+    # Переменные для Testflight
+    - echo TESTFLIGHT_INSTALLATION_LINK="$TESTFLIGHT_INSTALLATION_LINK" >> .env.default
+    - echo PILOT_GROUPS="$TESTFLIGHT_GROUPS" >> .env.default
+    # Переменные для работы со Slack
+    - echo SLACK_URL="$SLACK_WEBHOOK_URL" >> .env.default
+    # Переменные для работы с Youtrack
+    - echo YOUTRACK_BASE_URL="$YOUTRACK_BASE_URL" >> .env.default
+    - echo YOUTRACK_API_TOKEN="$YOUTRACK_API_TOKEN" >> .env.default
+    # Загрузка подготовленного .env-файла
+    - scp -P $BUILD_MACHINE_SSH_PORT .env.default $BUILD_MACHINE_SSH_USER@$BUILD_MACHINE_IP:$PROJECT_FOLDER
+    # Удаление .env-файла
+    - rm .env.default
+
+# Обработка бета-версии
+beta_deploy:
+  stage: beta_deploy
+  extends:
+    - .settings
+  only:
+    - schedules
+    - web
+  timeout: 3 hours
+  before_script:
+    - *prepare_ssh
+    - *define_constants
+    - *prepare_folders
+    - *init_repo
+    - *update_repo
+    - *init_environment
+  script: |
+    $SSH_CONNECT \
+    " \
+    source ~/.zshrc && \
+    cd $PROJECT_FOLDER && \
+    tuist up && \
+    bundle exec fastlane beta && \
+    exit && \
+    "

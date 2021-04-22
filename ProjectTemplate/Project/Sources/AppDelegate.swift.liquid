@@ -1,0 +1,38 @@
+//
+//  AppDelegate.swift
+//  {{ module_info.name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+// MARK: - AppDelegate
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+// MARK: - Properties
+    var window: UIWindow?
+
+// MARK: - Application Did Finish Launch
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+
+        self.setThirdPartyLibs(options: launchOptions)
+        self.setInitialViewController()
+
+        return true
+    }
+    
+// MARK: - Third Party Libs
+    private func setThirdPartyLibs(options: [UIApplication.LaunchOptionsKey: Any]?) {
+
+    }
+    
+// MARK: - Set Initial View Controller
+    private func setInitialViewController() {
+
+    }
+
+}

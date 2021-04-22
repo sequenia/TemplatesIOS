@@ -1,0 +1,37 @@
+//
+//  Defaults+StoredValue.swift
+//
+//  Copyright © 2021 Sequenia OOO. All rights reserved.
+//
+
+import Foundation
+
+// MARK: - Defaults StoredValue extension
+extension Defaults {
+    
+// MARK: - StoredValue
+    @propertyWrapper
+    struct StoredValue<T> {
+        
+    // MARK: - Properties
+        private let key: Defaults.Keys
+        private let defaultValue: T?
+        
+    // MARK: - Init
+        init(key: Defaults.Keys, defaultValue: T? = nil) {
+            self.key = key
+            self.defaultValue = defaultValue
+        }
+        
+    // MARK: - Wrapped value
+        var wrappedValue: T? {
+            get {
+                return (UserDefaults.standard.object(forKey: self.key.rawValue) as? T) ?? self.defaultValue
+            }
+            set {
+                UserDefaults.standard.setValue(newValue, forKey: self.key.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        }
+    }
+}

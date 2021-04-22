@@ -1,0 +1,61 @@
+//
+//  UILabel+SQExtensions.swift
+//
+//  Copyright © 2021 Sequenia OOO. All rights reserved.
+//
+
+import UIKit
+import SQExtensions
+
+public extension SQExtensions where Base: UILabel {
+
+    /// Set line height multiple for label
+    ///
+    /// - Parameters:
+    ///   - lineHeightMultiple: line height multiple parameter.`CGFloat`.
+    ///   - textAlignment: text alignment.`NSTextAlignment`.
+    func setLineHeightMultiple(_ lineHeightMultiple: CGFloat,
+                               textAlignment: NSTextAlignment = .left) {
+        
+        guard let labelText = self.base.text else { return }
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = lineHeightMultiple
+        paragraphStyle.alignment = textAlignment
+
+        let attributedString: NSMutableAttributedString
+        if let labelAttributedText = self.base.attributedText {
+            attributedString = NSMutableAttributedString(attributedString: labelAttributedText)
+        } else {
+            attributedString = NSMutableAttributedString(string: labelText)
+        }
+
+        attributedString.addAttribute(.paragraphStyle,
+                                      value: paragraphStyle,
+                                      range: NSRange(location: .zero, length: attributedString.length))
+
+        self.base.attributedText = attributedString
+    }
+    
+    /// Set kern for label
+    ///
+    /// - Parameters:
+    ///   - kern: kern parameter.`CGFloat`.
+    func setKern(_ kern: CGFloat) {
+        guard let labelText = self.base.text else { return }
+        
+        let attributedString: NSMutableAttributedString
+        if let labelAttributedText = self.base.attributedText {
+            attributedString = NSMutableAttributedString(attributedString: labelAttributedText)
+        } else {
+            attributedString = NSMutableAttributedString(string: labelText)
+        }
+        
+        attributedString.addAttribute(.kern,
+                                      value: kern,
+                                      range: NSRange(location: .zero, length: attributedString.length))
+        
+        self.base.attributedText = attributedString
+    }
+
+}

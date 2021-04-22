@@ -1,0 +1,34 @@
+### Headers settings
+company: Sequenia
+
+### Xcode project settings
+project_name: TSUMStats
+### xcodeproj_path: Project/TSUMStats.xcodeproj/
+
+### Code generation settings section
+# The main project target name
+### project_target: TSUMStats
+
+### Dependencies settings section
+podfile_path: Podfile
+project_bundle: TestBundle
+
+# The file path for new modules
+project_file_path: Project/Sources/Modules
+
+catalogs:
+- 'git@gitlab.sequenia.com:templates/TemplatesIOS.git'
+
+### Templates
+templates:
+# App screens
+- {name: VuperModule_3.0}
+- {name: VuperModuleTable_3.0}
+- {name: VuperModule_4.0}
+- {name: VuperModuleTable_4.0}
+
+# Table cells
+- {name: TableCell}
+- {name: TableCollectionCell}
+- {name: CollectionCell}
+- {name: CollectionCollectionCell}

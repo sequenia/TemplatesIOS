@@ -1,0 +1,42 @@
+# Pre deploy script
+import_from_git(
+  url: 'git@gitlab.sequenia.com:ios-development/fastlane-configs.git',
+  path: 'Fastlane-pre_deploy'
+)
+
+# Post deploy script
+import_from_git(
+  url: 'git@gitlab.sequenia.com:ios-development/fastlane-configs.git',
+  path: 'Fastlane-post_deploy'
+)
+
+# Code signing
+import_from_git(
+  url: 'git@gitlab.sequenia.com:ios-development/fastlane-configs.git',
+  path: 'Fastlane-code_signing'
+)
+
+# Work with git
+import_from_git(
+  url: 'git@gitlab.sequenia.com:ios-development/fastlane-configs.git',
+  path: 'Fastfile-git'
+)
+# import '/Users/semenkologrivov/Documents/Workspace/iOS/fastlane-configs/Fastfile-git'
+
+# Linter
+import_from_git(
+  url: 'git@gitlab.sequenia.com:ios-development/fastlane-configs.git',
+  path: 'Fastfile-lint'
+)
+
+# Dsyms
+import_from_git(
+  url: 'git@gitlab.sequenia.com:ios-development/fastlane-configs.git',
+  path: 'Fastlane-dsyms'
+)
+
+# Slack
+import_from_git(
+  url: 'git@gitlab.sequenia.com:ios-development/fastlane-configs.git',
+  path: 'Fastlane-slack_notifiers'
+)

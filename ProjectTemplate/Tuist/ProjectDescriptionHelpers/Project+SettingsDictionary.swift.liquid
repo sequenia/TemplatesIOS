@@ -1,0 +1,21 @@
+import ProjectDescription
+
+public extension SettingsDictionary {
+
+    func marketingVersion(_ value: String) -> SettingsDictionary {
+        return self.merging(["MARKETING_VERSION": SettingValue(stringLiteral: value)])
+    }
+
+    func bundleIdentifier(_ value: String) -> SettingsDictionary {
+        return self.merging(["PRODUCT_BUNDLE_IDENTIFIER": SettingValue(stringLiteral: value)])
+    }
+
+    func debugInformationFormat(_ value: String) -> SettingsDictionary {
+        return self.merging(["DEBUG_INFORMATION_FORMAT": SettingValue(stringLiteral: value)])
+    }
+
+    func bridgingHeaderPath(_ value: String) -> SettingsDictionary {
+        return self.merging(["SWIFT_OBJC_BRIDGING_HEADER": SettingValue(stringLiteral: value)])
+    }
+
+}

@@ -1,0 +1,145 @@
+//
+//  BaseCollectionViewController.swift
+//
+//  Copyright © 2021 Sequenia OOO. All rights reserved.
+//
+
+import UIKit
+import SQDifferenceKit
+import SQLists
+import SQKeyboard
+
+// MARK: - BaseCollectionViewController
+class BaseCollectionViewController: BaseViewController,
+                                    BaseCollectionView,
+                                    DiffCollectionProtocol, CollectionCellDelegate {
+
+// MARK: - Properties
+    internal var fabric: SQCollectionFabric!
+    internal var isShowBottomSheetController = false
+    internal var bottomInset: CGFloat = 0.0
+
+// MARK: - Outlets
+    @IBOutlet internal weak var collectionView: UICollectionView!
+
+// MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.setupCollectionView()
+    }
+
+// MARK: - Keyboard
+    override func handleKeyboard(withFrame frame: CGRect,
+                                 animationDuration: TimeInterval,
+                                 animationOptions: UIView.AnimationOptions,
+                                 isShow: Bool) {
+        UIView.animate(withDuration: 0,
+                       delay: 0,
+                       options: .curveLinear,
+                       animations: {
+
+        }, completion: { (_) in
+            UIView.animate(withDuration: animationDuration,
+                           delay: 0,
+                           options: [animationOptions],
+                           animations: {
+                self.isShowBottomSheetController = false
+
+                var inset = self.collectionView.contentInset
+                inset.bottom = (isShow && !self.isShowBottomSheetController) ? frame.height : self.bottomInset
+                self.collectionView.contentInset = inset
+            }, completion: nil)
+        })
+    }
+
+// MARK: - Setup collectio view
+    internal func setupCollectionView() {
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+
+        self.collectionView.keyboardDismissMode = .interactive
+
+        self.setupFabric()
+    }
+    
+    internal func setupFabric() {
+        assertionFailure("not init fabric")
+    }
+    
+// MARK: - Collection Cell Delegate
+    internal func saveScrollPosition(_ position: CGPoint,
+                                     forModel model: CollectionModelRow?) {
+        guard let model = model,
+              let sectionIndex = self.data.firstIndex(where: { $0.elements.contains(where: { $0.differenceIdentifier == model.differenceIdentifier }) }) else { return }
+
+        let key = self.cacheKey(forModel: model,
+                                inSection: sectionIndex)
+        
+        self.storeScrollPosition(position, forKey: key)
+    }
+    
+    internal func collectionModel(_ model: CollectionModelRow?,
+                                  willShowModelRow modelRow: ModelRow?,
+                                  inSection: ModelSection?) { }
+
+    internal func collectionModel(_ model: CollectionModelRow?,
+                                  didSelectModel modelRow: ModelRow?,
+                                  inSection: ModelSection?) { }
+
+}
+
+// MARK: - UICollectionView Data Source
+extension BaseCollectionViewController: UICollectionViewDataSource {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.data.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+
+        return self.data[section].elements.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let section = self.data[indexPath.section]
+        let row = section.elements[indexPath.row]
+
+        return self.fabric.cell(forModelRow: row, atIndexPath: indexPath)
+    }
+
+}
+
+// MARK: - UICollectionView delegate
+extension BaseCollectionViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        
+        self.collectionView.deselectItem(at: indexPath,
+                                         animated: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return self.fabric.header(forModelSection: self.data[indexPath.section].model.header,
+                                      atIndexPath: indexPath)
+
+        case UICollectionView.elementKindSectionFooter:
+            return self.fabric.footer(forModelSection: self.data[indexPath.section].model.footer,
+                                      atIndexPath: indexPath)
+
+        default:
+            assert(false, "Invalid element type")
+        }
+
+        return UICollectionReusableView()
+    }
+}

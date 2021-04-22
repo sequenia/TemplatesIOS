@@ -1,0 +1,88 @@
+# Template information section
+name: "ProjectTemplate"
+summary: "Swift project template"
+author: "Sequenia"
+version: "0.2.0"
+
+# The declarations for code files
+
+code_files:
+# Fastlane
+- {custom_name: Appfile, name: Fastlane/Appfile, path: Fastlane/Appfile.liquid}
+- {custom_name: Fastfile, name: Fastlane/Fastfile, path: Fastlane/Fastfile.liquid}
+- {custom_name: Imports, name: Fastlane/Imports, path: Fastlane/Imports.liquid}
+- {custom_name: Pluginfile, name: Fastlane/Pluginfile, path: Fastlane/Pluginfile.liquid}
+
+# Project
+- {custom_name: Project.swift, name: Project/Project.swift, path: Project/Project.swift.liquid}
+
+    #Configs
+- {custom_name: Info.plist, name: Project/Configs/Info.plist, path: Project/Configs/Info.plist.liquid}
+- {custom_name: Project.entitlements, name: Project/Configs/Project.entitlements, path: Project/Configs/Project.entitlements.liquid}
+
+        #Debug
+- {custom_name: Config-debug.xcconfig, name: Project/Configs/Debug/Config-debug.xcconfig, path: Project/Configs/Debug/Config-debug.xcconfig.liquid}
+
+        #Release
+- {custom_name: Config-release.xcconfig, name: Project/Configs/Release/Config-release.xcconfig, path: Project/Configs/Release/Config-release.xcconfig.liquid}
+
+    #Resources
+        #Assets
+- {custom_name: Contents.json, name: Project/Resources/Assets/Assets.xcassets/Contents.json, path: Project/Resources/Assets/Assets.xcassets/Contents.json.liquid}
+- {custom_name: Contents.json, name: Project/Resources/Assets/Assets.xcassets/AppIcon.appiconset/Contents.json, path: Project/Resources/Assets/Assets.xcassets/AppIcon.appiconset/Contents.json.liquid}
+- {custom_name: Contents.json, name: Project/Resources/Assets/Colors.xcassets/Contents.json, path: Project/Resources/Assets/Colors.xcassets/Contents.json.liquid}
+
+        #LaunchScreen
+- {custom_name: LaunchScreen.storyboard, name: Project/Resources/LaunchScreen/LaunchScreen.storyboard, path: Project/Resources/LaunchScreen/LaunchScreen.storyboard.liquid}
+        #Strings 
+- {custom_name: InfoPlist.strings, name: Project/Resources/Strings/en.lproj/InfoPlist.strings, path: Project/Resources/Strings/en.lproj/InfoPlist.strings.liquid}
+- {custom_name: Localizible.strings, name: Project/Resources/Strings/en.lproj/Localizible.strings, path: Project/Resources/Strings/en.lproj/Localizible.strings.liquid}
+- {custom_name: Localizible.stringsdict, name: Project/Resources/Strings/en.lproj/Localizible.stringsdict, path: Project/Resources/Strings/en.lproj/Localizible.stringsdict.liquid}
+
+    #RunScripts
+- {custom_name: crashlytics.sh, name: Project/RunScripts/crashlytics.sh, path: Project/RunScripts/crashlytics.sh.liquid}
+- {custom_name: highlight_todo.sh, name: Project/RunScripts/highlight_todo.sh, path: Project/RunScripts/highlight_todo.sh.liquid}
+- {custom_name: link_google_services_plist.sh, name: Project/RunScripts/link_google_services_plist.sh, path: Project/RunScripts/link_google_services_plist.sh.liquid}
+- {custom_name: linter.sh, name: Project/RunScripts/linter.sh, path: Project/RunScripts/linter.sh.liquid}
+- {custom_name: r_swift.sh, name: Project/RunScripts/r_swift.sh, path: Project/RunScripts/r_swift.sh.liquid}
+
+    #Sources
+        #Extensions
+- {custom_name: Defaults+StoredValue.swift, name: Project/Sources/Extensions/Foundation/Defaults+StoredValue.swift, path: Project/Sources/Extensions/Foundation/Defaults+StoredValue.swift.liquid}
+- {custom_name: UILabel+SQExtensions.swift, name: Project/Sources/Extensions/UIKit/UILabel/UILabel+SQExtensions.swift, path: Project/Sources/Extensions/UIKit/UILabel/UILabel+SQExtensions.swift.liquid}
+    
+    #Modules
+- {custom_name: Defaults.swift, name: Project/Sources/Utils/Defaults/Defaults.swift, path: Project/Sources/Utils/Defaults/Defaults.swift.liquid}
+        #Base
+            #CollectionViewController
+- {custom_name: BaseCollectionViewController.swift, name: Project/Sources/Modules/Base/CollectionViewController/BaseCollectionViewController.swift, path: Project/Sources/Modules/Base/CollectionViewController/BaseCollectionViewController.swift.liquid}
+            
+            #TableViewController
+- {custom_name: BaseTableViewController.swift, name: Project/Sources/Modules/Base/TableViewController/BaseTableViewController.swift, path: Project/Sources/Modules/Base/TableViewController/BaseTableViewController.swift.liquid}
+            
+            #ViewController
+- {custom_name: BaseConfigurator.swift, name: Project/Sources/Modules/Base/ViewController/BaseConfigurator.swift, path: Project/Sources/Modules/Base/ViewController/BaseConfigurator.swift.liquid}
+- {custom_name: BasePresenter.swift, name: Project/Sources/Modules/Base/ViewController/BasePresenter.swift, path: Project/Sources/Modules/Base/ViewController/BasePresenter.swift.liquid}
+- {custom_name: BaseRouter.swift, name: Project/Sources/Modules/Base/ViewController/BaseRouter.swift, path: Project/Sources/Modules/Base/ViewController/BaseRouter.swift.liquid}
+- {custom_name: BaseViewController.swift, name: Project/Sources/Modules/Base/ViewController/BaseViewController.swift, path: Project/Sources/Modules/Base/ViewController/BaseViewController.swift.liquid}
+    
+    #Utils
+- {custom_name: AppDelegate.swift, name: Project/Sources/AppDelegate.swift, path: Project/Sources/AppDelegate.swift.liquid}
+
+#Tuist
+- {custom_name: Config.swift, name: Tuist/Config.swift, path: Tuist/Config.swift.liquid}
+
+    #ProjectDescriptionHelpers
+- {custom_name: Project+Scheme.swift, name: Tuist/ProjectDescriptionHelpers/Project+Scheme.swift, path: Tuist/ProjectDescriptionHelpers/Project+Scheme.swift.liquid}
+- {custom_name: Project+SettingsDictionary.swift, name: Tuist/ProjectDescriptionHelpers/Project+SettingsDictionary.swift, path: Tuist/ProjectDescriptionHelpers/Project+SettingsDictionary.swift.liquid}
+
+#Project Directory
+- {custom_name: Gemfile, name: ./Gemfile, path: ./Gemfile.liquid}
+- {custom_name: Podfile, name: ./Podfile, path: ./Podfile.liquid}
+- {custom_name: Rambafile, name: ./Rambafile, path: ./Rambafile.liquid}
+- {custom_name: Setup.swift, name: ./Setup.swift, path: ./Setup.swift.liquid}
+- {custom_name: Workspace.swift, name: ./Workspace.swift, path: ./Workspace.swift.liquid}
+- {custom_name: .gitignore, name: ./.gitignore, path: ./gitignore.liquid}
+- {custom_name: .swiftlint.yml, name: ./.swiftlint.yml, path: ./swiftlint.yml.liquid}
+- {custom_name: .tuist-version, name: ./.tuist-version, path: ./tuist-version.liquid}
+- {custom_name: .gitlab-ci.yml, name: ./.gitlab-ci.yml, path: ./gitlab-ci.yml.liquid}

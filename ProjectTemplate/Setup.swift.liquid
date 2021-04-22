@@ -1,0 +1,10 @@
+import ProjectDescription
+
+let setup = Setup([
+    .homebrew(packages: ["swiftlint"]),
+    .custom(name: "Bundler install", meet: ["gem", "install", "bundler"], isMet: [""]),
+    .custom(name: "Bundle install", meet: ["bundle", "install"], isMet: [""]),
+    .custom(name: "R.swift prepare", meet: ["touch", "./Project/Sources/R.generated.swift"], isMet: [""]),
+    .custom(name: "Generamba setup", meet: ["generamba", "template", "install"], isMet: [""]),
+    .custom(name: "Generate the project", meet: ["tuist", "generate"], isMet: [""])
+])

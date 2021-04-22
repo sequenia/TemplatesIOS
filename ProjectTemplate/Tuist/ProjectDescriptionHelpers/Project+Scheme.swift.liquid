@@ -1,0 +1,37 @@
+import ProjectDescription
+
+public extension Scheme {
+
+    static func debug(withName name: String? = nil,
+                      forTargers targets: [TargetReference],
+                      arguments: Arguments? = nil) -> Scheme {
+        var schemeName = "Debug"
+        if let additionalName = name {
+            schemeName = "\(additionalName) - \(schemeName)"
+        }
+
+        return Scheme(
+            name: schemeName,
+            shared: true,
+            buildAction: BuildAction(targets: targets),
+            runAction: RunAction(config: .debug, arguments: arguments),
+            archiveAction: ArchiveAction(configurationName: "Debug")
+        )
+    }
+
+    static func release(withName name: String? = nil,
+                        forTargers targets: [TargetReference],
+                        arguments: Arguments? = nil) -> Scheme {
+        var schemeName = "Release"
+        if let additionalName = name {
+            schemeName = "\(additionalName) - \(schemeName)"
+        }
+        return Scheme(
+            name: schemeName,
+            shared: true,
+            buildAction: BuildAction(targets: targets),
+            runAction: RunAction(config: .release, arguments: arguments),
+            archiveAction: ArchiveAction(configurationName: "Release")
+        )
+    }
+}

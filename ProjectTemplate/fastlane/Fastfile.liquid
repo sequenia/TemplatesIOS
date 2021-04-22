@@ -1,0 +1,180 @@
+import './Imports'
+
+default_platform(:ios)
+
+platform :ios do
+  # Папка для тэгов
+  tags_folder = 'build'
+
+  # Идентификаторы debug-схем
+  debug_targets = {
+    '{{ module_info.name }}Debug' => '{{ custom_parameters.debug_bundle_id }}'
+  }
+
+  # Идентификаторы release-схем
+  release_targets = {
+    '{{ module_info.name }}Release' => '{{ custom_parameters.release_bundle_id }}'
+  }
+
+  # Главный target проекта
+  main_target = '{{ module_info.name }}Debug'
+
+  # Путь к файлу GoogleService-Info.plist для debug-приложения
+  # debug_gsp_path = File.expand_path("#{ENV['PROJECT_FOLDER']}/Project/Configs/Debug/GoogleService-Info-dev.plist")
+
+  # Путь к файлу GoogleService-Info.plist для release-приложения
+  # release_gsp_path = File.expand_path("#{ENV['PROJECT_FOLDER']}/Project/Configs/Release/GoogleService-Info-prod.plist")
+
+  # Путь к .xcodeproj-файлу
+  path_to_proj_file = './Project/{{ module_info.name }}.xcodeproj'
+
+  # Настройка переменных окружения
+  lane :setup_envs do |options|
+    # Настройка ENV-переменных для получения версии проекта (get_version_number)
+    ENV['FL_VERSION_NUMBER_PROJECT'] = path_to_proj_file
+    ENV['FL_VERSION_NUMBER_TARGET'] = main_target
+
+    # Настройка ENV-переменных для получения/увеличения версии проекта (get_build_number/increment_build_number)
+    ENV['FL_BUILD_NUMBER_PROJECT'] = path_to_proj_file
+
+    # Настройка ENV-переменных для изменения codesign проекта (update_code_signing_settings)
+    ENV['FL_PROJECT_SIGNING_PROJECT_PATH'] = path_to_proj_file
+
+    # Настройка путей для обновления dsym-файлов
+    if options[:beta]
+      ENV['GOOGLE_SERVICES_INFO_PLIST_PATH'] = debug_gsp_path
+    else
+      ENV['GOOGLE_SERVICES_INFO_PLIST_PATH'] = release_gsp_path
+    end
+  end
+
+  # Загрузка бета-версии приложения в Testflight
+  lane :beta do
+    # Проверка, нужно ли запускать сборку
+    last_release_tag = last_git_tag(pattern: "#{tags_folder}/*")
+    if tag_is_last_commit(tag: last_release_tag)
+      puts 'Deploy is not needed'
+      next
+    end
+
+    # Настройка переменных окружения
+    setup_envs(
+      beta: true
+    )
+
+    # Выполнение предварительных скриптов
+    pre_deploy
+
+    # Настройка подписи сборки
+    setup_code_signing(
+      targets: debug_targets
+    )
+
+    # Получение всех задачек из сборки
+    fetch_released_issues(
+      tags_folder: tags_folder,
+      issues_prefix: 'WC'
+    )
+
+    # Сборка приложения (http://docs.fastlane.tools/actions/gym/#gym)
+    build_app(
+      clean: true,
+      scheme: 'Debug',
+      export_method: 'app-store'
+    )
+
+    # Загрузка сборки в Testflight (http://docs.fastlane.tools/actions/pilot/#pilot)
+    upload_to_testflight(
+      notify_external_testers: !ENV['PILOT_GROUPS'].nil?,
+      distribute_external: !ENV['PILOT_GROUPS'].nil?,
+      demo_account_required: false,
+      beta_app_review_info: {
+        'contact_email': 'info@sequenia.com',
+        'contact_first_name': 'Denis',
+        'contact_last_name': 'Baluev',
+        'contact_phone': '+79137446967',
+        'demo_account_name': '9111111111',
+        'demo_account_password': '111111'
+      },
+      localized_app_info: {
+        'en': {
+          'feedback_email': 'info@sequenia.com',
+          'marketing_url': 'http://www.angstrom-ltd.ru/',
+          'privacy_policy_url': 'http://www.angstrom-ltd.ru/',
+          'description': 'App for measuring instruments'
+        }
+      },
+      localized_build_info: {
+        'en': {
+          'whats_new': (lane_context[SharedValues::YOUTRACK_RELEASED_ISSUES] || []).map { |issue| issue[:title] }.compact.join("\n")
+        }
+      }
+    )
+
+    # Уведомление о заливке новой сборки
+    notify_about_testflight_distribute(
+      app_name: 'TSUMStats',
+      channel: '#tsum-stats',
+      issue_urls: (lane_context[SharedValues::YOUTRACK_RELEASED_ISSUES] || []).map { |issue| issue[:url] }.compact,
+      installation_link: ENV['TESTFLIGHT_INSTALLATION_LINK'],
+    )
+
+    # Выполнение финишных скриптов
+    post_deploy(
+      beta: true,
+      tags_folder: tags_folder
+    )
+  end
+
+  # Загрузка сборки в App Store и отправка на ревью
+  lane :release do
+    # Настройка переменных окружения
+    setup_envs
+
+    # Выполнение предварительных скриптов
+    pre_deploy
+
+    # Настройка подписи сборки
+    setup_code_signing(
+      targets: release_targets
+    )
+
+    # Получение текущего номера версии проекта
+    version_number = get_version_number
+
+    # Сборка приложения (http://docs.fastlane.tools/actions/gym/#gym)
+    build_app(
+      clean: true,
+      scheme: 'Release',
+      export_method: 'app-store'
+    )
+
+    # Загрузка приложения в App Store (http://docs.fastlane.tools/actions/deliver/#deliver)
+    upload_to_app_store(
+      submit_for_review: true,
+      automatic_release: false,
+      phased_release: true,
+      force: true,
+      overwrite_screenshots: true,
+      app_version: version_number,
+      precheck_include_in_app_purchases: false
+    )
+
+    # Выполнение финишных скриптов
+    post_deploy(
+      tags_folder: tags_folder
+    )
+  end
+
+  # Обновление dsym-ов из AppStoreConnect
+  lane :update_dsyms do |options|
+    setup_envs(
+      beta: options[:beta]
+    )
+
+    download_and_update_dsym(
+      version: options[:version],
+      build_number: options[:build_number]
+    )
+  end
+end

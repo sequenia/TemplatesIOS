@@ -1,0 +1,33 @@
+//
+//  BasePresenter.swift
+//
+//  Copyright © 2021 Sequenia OOO. All rights reserved.
+//
+
+import UIKit
+import SQExtensions
+import SQVUPER
+
+// MARK: - BasePresenter
+protocol BasePresenter: Presenter {
+
+}
+
+// MARK: - BasePresenterImpl
+class BasePresenterImpl: BasePresenter {
+
+// MARK: - Life Cycle
+    internal func viewDidLoad() {}
+
+    internal func viewWillAppear() {}
+
+    internal func viewDidAppear() {}
+
+    internal func viewWillDisappear() {}
+
+    internal func viewDidDisappear() {}
+
+    internal func viewDidUnload() {}
+
+    internal func didReceiveMemoryWarning() {}
+}
