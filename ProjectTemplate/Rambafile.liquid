@@ -2,16 +2,15 @@
 company: Sequenia
 
 ### Xcode project settings
-project_name: TSUMStats
-### xcodeproj_path: Project/TSUMStats.xcodeproj/
+project_name: {{ module_info.name }}
+### xcodeproj_path: Project/{{ module_info.name }}.xcodeproj/
 
 ### Code generation settings section
 # The main project target name
-### project_target: TSUMStats
+### project_target: {{ module_info.name }}
 
 ### Dependencies settings section
 podfile_path: Podfile
-project_bundle: TestBundle
 
 # The file path for new modules
 project_file_path: Project/Sources/Modules
@@ -22,8 +21,6 @@ catalogs:
 ### Templates
 templates:
 # App screens
-- {name: VuperModule_3.0}
-- {name: VuperModuleTable_3.0}
 - {name: VuperModule_4.0}
 - {name: VuperModuleTable_4.0}
 

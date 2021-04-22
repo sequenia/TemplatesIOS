@@ -1,6 +1,7 @@
 # Описание всех возможных job-ов, которые могут исполняться в рамках pipeline
 stages:
   - beta_deploy
+  - release_deploy
 
 # Общие настройки
 .settings:
@@ -23,7 +24,6 @@ stages:
     - export SSH_CONNECT="ssh $BUILD_MACHINE_SSH_USER@$BUILD_MACHINE_ADDRESS -p $BUILD_MACHINE_SSH_PORT"
     - export PROJECT_FOLDER=$BUILD_MACHINE_WORKSPACE/$CI_PROJECT_NAME
     - export GIT_REPO_PATH=git@$GITLAB_HOST:$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME.git
-    - export GIT_REF_URL="refs/pipelines/$CI_PIPELINE_ID"
 
 # Подготовка папок на машине-сборщике
 .prepare_folders:
@@ -81,6 +81,8 @@ stages:
     # Переменные для Testflight
     - echo TESTFLIGHT_INSTALLATION_LINK="$TESTFLIGHT_INSTALLATION_LINK" >> .env.default
     - echo PILOT_GROUPS="$TESTFLIGHT_GROUPS" >> .env.default
+    # Переменные для App Store Connect
+    - echo APP_STORE_CONNECT_LINK="$APP_STORE_CONNECT_LINK" >> .env.default
     # Переменные для работы со Slack
     - echo SLACK_URL="$SLACK_WEBHOOK_URL" >> .env.default
     # Переменные для работы с Youtrack
@@ -114,5 +116,29 @@ beta_deploy:
     cd $PROJECT_FOLDER && \
     tuist up && \
     bundle exec fastlane beta && \
+    exit && \
+    "
+
+# Выпуск новой версии
+release_deploy:
+  stage: release_deploy
+  extends:
+    - .settings
+  only:
+    - master
+  before_script:
+    - *prepare_ssh
+    - *define_constants
+    - *prepare_folders
+    - *init_repo
+    - *update_repo
+    - *init_environment
+  script: |
+    $SSH_CONNECT \
+    " \
+    source ~/.zshrc && \
+    cd $PROJECT_FOLDER && \
+    bundle install && \
+    bundle exec fastlane release && \
     exit && \
     "

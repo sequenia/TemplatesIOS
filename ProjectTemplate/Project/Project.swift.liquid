@@ -14,12 +14,12 @@ let settings = SettingsDictionary()
 
 let debugSchemeArgs = Arguments(
     environment: [ : ],
-    launchArguments: [ : ]
+    launchArguments: []
 )
 
 let releaseSchemeArgs = Arguments(
     environment: [ : ],
-    launchArguments: [ : ]
+    launchArguments: []
 )
 
 let project = Project(name: "{{ module_info.name }}",
@@ -59,13 +59,13 @@ let project = Project(name: "{{ module_info.name }}",
                                      outputPaths: [
                                         "$SRCROOT/Sources/R.generated.swift"
                                      ]),
-                                     /*
-                                .post(path: "./RunScripts/crashlytics.sh",
-                                      name: "Crashlytics",
-                                      inputPaths: [
-                                        "$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-                                        "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}"
-                                      ]),*/
+// Раскомментируйте эти строки, если в вашем проекте используется сервис Firebase Crashlytics
+//                                .post(path: "./RunScripts/crashlytics.sh",
+//                                      name: "Crashlytics",
+//                                      inputPaths: [
+//                                        "$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+//                                        "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}"
+//                                      ]),
                                 .post(path:"./RunScripts/linter.sh",
                                       name: "Linter",
                                       basedOnDependencyAnalysis: false),
@@ -87,5 +87,8 @@ let project = Project(name: "{{ module_info.name }}",
                           .release(forTargers: ["{{ module_info.name }}"], arguments: releaseSchemeArgs)
                       ],
                       additionalFiles: [
+// Раскомментируйте эти строки, если в вашем проекте используется сервис Firebase Crashlytics
+//                           "./Configs/Debug/GoogleService-Info-dev.plist",
+//                          "./Configs/Release/GoogleService-Info-prod.plist",
                           .folderReference(path: "./RunScripts")
                       ])

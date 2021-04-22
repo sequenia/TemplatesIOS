@@ -49,7 +49,6 @@ code_files:
     #Sources
         #Extensions
 - {custom_name: Defaults+StoredValue.swift, name: Project/Sources/Extensions/Foundation/Defaults+StoredValue.swift, path: Project/Sources/Extensions/Foundation/Defaults+StoredValue.swift.liquid}
-- {custom_name: UILabel+SQExtensions.swift, name: Project/Sources/Extensions/UIKit/UILabel/UILabel+SQExtensions.swift, path: Project/Sources/Extensions/UIKit/UILabel/UILabel+SQExtensions.swift.liquid}
     
     #Modules
 - {custom_name: Defaults.swift, name: Project/Sources/Utils/Defaults/Defaults.swift, path: Project/Sources/Utils/Defaults/Defaults.swift.liquid}

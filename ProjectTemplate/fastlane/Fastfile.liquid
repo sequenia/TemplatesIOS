@@ -8,17 +8,18 @@ platform :ios do
 
   # Идентификаторы debug-схем
   debug_targets = {
-    '{{ module_info.name }}Debug' => '{{ custom_parameters.debug_bundle_id }}'
+    '{{ module_info.name }}' => '{{ custom_parameters.debug_bundle_id }}'
   }
 
   # Идентификаторы release-схем
   release_targets = {
-    '{{ module_info.name }}Release' => '{{ custom_parameters.release_bundle_id }}'
+    '{{ module_info.name }}' => '{{ custom_parameters.release_bundle_id }}'
   }
 
   # Главный target проекта
-  main_target = '{{ module_info.name }}Debug'
+  main_target = '{{ module_info.name }}'
 
+  # Раскомментируйте эти строки, если используете в своем проекте сервис Firebase Crashlytics
   # Путь к файлу GoogleService-Info.plist для debug-приложения
   # debug_gsp_path = File.expand_path("#{ENV['PROJECT_FOLDER']}/Project/Configs/Debug/GoogleService-Info-dev.plist")
 
@@ -40,6 +41,7 @@ platform :ios do
     # Настройка ENV-переменных для изменения codesign проекта (update_code_signing_settings)
     ENV['FL_PROJECT_SIGNING_PROJECT_PATH'] = path_to_proj_file
 
+    # Раскомментируйте эти строки, если используете в своем проекте сервис Firebase Crashlytics
     # Настройка путей для обновления dsym-файлов
     if options[:beta]
       ENV['GOOGLE_SERVICES_INFO_PLIST_PATH'] = debug_gsp_path
@@ -70,10 +72,11 @@ platform :ios do
       targets: debug_targets
     )
 
+    # Замените YTID на префикс задач из YouTrack, если хотите собирать changelog сборки по карточкам
     # Получение всех задачек из сборки
     fetch_released_issues(
       tags_folder: tags_folder,
-      issues_prefix: 'WC'
+      issues_prefix: 'YTID'
     )
 
     # Сборка приложения (http://docs.fastlane.tools/actions/gym/#gym)
@@ -89,32 +92,33 @@ platform :ios do
       distribute_external: !ENV['PILOT_GROUPS'].nil?,
       demo_account_required: false,
       beta_app_review_info: {
-        'contact_email': 'info@sequenia.com',
-        'contact_first_name': 'Denis',
-        'contact_last_name': 'Baluev',
-        'contact_phone': '+79137446967',
-        'demo_account_name': '9111111111',
-        'demo_account_password': '111111'
+        'contact_email': 'contact@email.com',
+        'contact_first_name': 'Name',
+        'contact_last_name': 'Surname',
+        'contact_phone': '+79111111111',
+        # Раскомментируйте эти строки и пропишите актуальные данные, если в приложении нужен демо-аккаунт для ревью
+        # 'demo_account_name': 'login',
+        # 'demo_account_password': 'password'
       },
       localized_app_info: {
-        'en': {
-          'feedback_email': 'info@sequenia.com',
-          'marketing_url': 'http://www.angstrom-ltd.ru/',
-          'privacy_policy_url': 'http://www.angstrom-ltd.ru/',
-          'description': 'App for measuring instruments'
+        'en-US': {
+          'feedback_email': 'feedback@email.com',
+          'marketing_url': 'https://www.url.com/',
+          'privacy_policy_url': 'https://www.url.com/privacy_policy_url',
+          'description': 'App description'
         }
       },
       localized_build_info: {
-        'en': {
-          'whats_new': (lane_context[SharedValues::YOUTRACK_RELEASED_ISSUES] || []).map { |issue| issue[:title] }.compact.join("\n")
+        'en-US': {
+          'whats_new': (lane_context[SharedValues::YOUTRACK_RELEASED_ISSUES] || []).map { |issue| issue[:summary] }.compact.join("\n")
         }
       }
     )
 
     # Уведомление о заливке новой сборки
     notify_about_testflight_distribute(
-      app_name: 'TSUMStats',
-      channel: '#tsum-stats',
+      app_name: '{{ module_info.name }}',
+      channel: '#general',
       issue_urls: (lane_context[SharedValues::YOUTRACK_RELEASED_ISSUES] || []).map { |issue| issue[:url] }.compact,
       installation_link: ENV['TESTFLIGHT_INSTALLATION_LINK'],
     )
@@ -158,6 +162,13 @@ platform :ios do
       overwrite_screenshots: true,
       app_version: version_number,
       precheck_include_in_app_purchases: false
+    )
+
+    # Уведомление об отправке на ревью сборки
+    review_slack_notifier(
+      app_name: '{{ module_info.name }}',
+      channel: '#general',
+      app_store_connect_link: ENV['APP_STORE_CONNECT_LINK']
     )
 
     # Выполнение финишных скриптов
