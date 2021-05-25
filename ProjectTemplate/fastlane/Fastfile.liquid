@@ -116,11 +116,11 @@ platform :ios do
     )
 
     # Уведомление о заливке новой сборки
-    notify_about_testflight_distribute(
+    testflight_slack_notifier(
       app_name: '{{ module_info.name }}',
       channel: '#general',
-      issue_urls: (lane_context[SharedValues::YOUTRACK_RELEASED_ISSUES] || []).map { |issue| issue[:url] }.compact,
       installation_link: ENV['TESTFLIGHT_INSTALLATION_LINK'],
+      issue_urls: (lane_context[SharedValues::YOUTRACK_RELEASED_ISSUES] || []).map { |issue| issue[:url] }.compact,
     )
 
     # Выполнение финишных скриптов
