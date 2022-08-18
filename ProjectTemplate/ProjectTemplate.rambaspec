@@ -72,7 +72,6 @@ code_files:
 - {custom_name: Config.swift, name: Tuist/Config.swift, path: Tuist/Config.swift.liquid}
 
     #ProjectDescriptionHelpers
-- {custom_name: Project+Scheme.swift, name: Tuist/ProjectDescriptionHelpers/Project+Scheme.swift, path: Tuist/ProjectDescriptionHelpers/Project+Scheme.swift.liquid}
 - {custom_name: Project+SettingsDictionary.swift, name: Tuist/ProjectDescriptionHelpers/Project+SettingsDictionary.swift, path: Tuist/ProjectDescriptionHelpers/Project+SettingsDictionary.swift.liquid}
 
 #Project Directory
