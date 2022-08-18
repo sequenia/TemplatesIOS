@@ -78,6 +78,5 @@ code_files:
 - {custom_name: Setup.swift, name: ./Setup.swift, path: ./Setup.swift.liquid}
 - {custom_name: Workspace.swift, name: ./Workspace.swift, path: ./Workspace.swift.liquid}
 - {custom_name: .gitignore, name: ./.gitignore, path: ./gitignore.liquid}
-- {custom_name: .swiftlint.yml, name: ./.swiftlint.yml, path: ./swiftlint.yml.liquid}
 - {custom_name: .tuist-version, name: ./.tuist-version, path: ./tuist-version.liquid}
 - {custom_name: .gitlab-ci.yml, name: ./.gitlab-ci.yml, path: ./gitlab-ci.yml.liquid}
