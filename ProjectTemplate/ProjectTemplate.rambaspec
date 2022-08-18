@@ -71,9 +71,6 @@ code_files:
 #Tuist
 - {custom_name: Config.swift, name: Tuist/Config.swift, path: Tuist/Config.swift.liquid}
 
-    #ProjectDescriptionHelpers
-- {custom_name: Project+SettingsDictionary.swift, name: Tuist/ProjectDescriptionHelpers/Project+SettingsDictionary.swift, path: Tuist/ProjectDescriptionHelpers/Project+SettingsDictionary.swift.liquid}
-
 #Project Directory
 - {custom_name: Gemfile, name: ./Gemfile, path: ./Gemfile.liquid}
 - {custom_name: Podfile, name: ./Podfile, path: ./Podfile.liquid}
